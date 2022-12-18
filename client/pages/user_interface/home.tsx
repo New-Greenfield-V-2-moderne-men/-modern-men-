@@ -1,24 +1,16 @@
+//@ts-nocheck
 import React from "react";
-
 import SimpleImageSlider from "react-simple-image-slider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFacebookF,
-  faLinkedin,
-  faTwitter,
-  faInstagram,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
-
-import {
-  faMagnifyingGlass,
-  faHeart,
-  faShoppingCart,
   faCheck,
   faTruckFast,
   faExchange,
   faPhoneVolume,
 } from "@fortawesome/free-solid-svg-icons";
+
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 export default function home() {
   const images = [
@@ -42,227 +34,17 @@ export default function home() {
   return (
     <div>
       <>
-        {/* Topbar Start */}
-        <div className="container-fluid">
-          <div className="row bg-secondary py-2 px-xl-5">
-            <div className="col-lg-6 d-none d-lg-block">
-              <div className="d-inline-flex align-items-center">
-                <a className="text-dark" href="">
-                  Help
-                </a>
-                <span className="text-muted px-2">|</span>
-                <a className="text-dark" href="">
-                  Support
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-6 text-center text-lg-right">
-              <div className="d-inline-flex align-items-center">
-                <a className="text-dark px-2" href="">
-                  <FontAwesomeIcon icon={faFacebookF} />
-                </a>
-                <a className="text-dark px-2" href="">
-                  <FontAwesomeIcon icon={faTwitter} />
-                  <i className="fab fa-twitter" />
-                </a>
-                <a className="text-dark px-2" href="">
-                  <FontAwesomeIcon icon={faLinkedin} />
-                </a>
-                <a className="text-dark px-2" href="">
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-
-                <a className="text-dark pl-2" href="">
-                  <FontAwesomeIcon icon={faYoutube} />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="row align-items-center py-3 px-xl-5">
-            <div className="col-lg-3 d-none d-lg-block">
-              <a href="" className="text-decoration-none">
-                <h1 className="m-0 display-5 font-weight-semi-bold">
-                  <span className="text-primary font-weight-bold border px-3 mr-1">
-                    E
-                  </span>
-                  Shopper
-                </h1>
-              </a>
-            </div>
-            <div className="col-lg-6 col-6 text-left">
-              <form action="">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search for products"
-                  />
-                  <div className="input-group-append">
-                    <span className="input-group-text bg-transparent text-primary">
-                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </span>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div className="col-lg-3 col-6 text-right">
-              <a href="" className="btn border">
-                {/* <i className="fas fa-heart text-primary" /> */}
-                <FontAwesomeIcon icon={faHeart} />
-                <span className="badge">0</span>
-              </a>
-              <a href="" className="btn border">
-                <FontAwesomeIcon icon={faShoppingCart} />
-                <span className="badge">0</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        {/* Topbar End */}
+        <Navbar />
         {/* Navbar Start */}
         <div className="container-fluid mb-5">
           <div className="row border-top px-xl-5">
-            <div className="col-lg-3 d-none d-lg-block">
-              <a
-                className="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
-                data-toggle="collapse"
-                href="#navbar-vertical"
-                style={{ height: 65, marginTop: "-1px", padding: "0 30px" }}
-              >
-                <h6 className="m-0">Categories</h6>
-                <i className="fa fa-angle-down text-dark" />
-              </a>
-              <nav
-                className="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
-                id="navbar-vertical"
-              >
-                <div
-                  className="navbar-nav w-100 overflow-hidden"
-                  style={{ height: 410 }}
-                >
-                  <div className="nav-item dropdown">
-                    <a href="#" className="nav-link" data-toggle="dropdown">
-                      Dresses{" "}
-                      <i className="fa fa-angle-down float-right mt-1" />
-                    </a>
-                    <div className="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                      <a href="" className="dropdown-item">
-                        Men's Dresses
-                      </a>
-                      <a href="" className="dropdown-item">
-                        Women's Dresses
-                      </a>
-                      <a href="" className="dropdown-item">
-                        Baby's Dresses
-                      </a>
-                    </div>
-                  </div>
-                  <a href="" className="nav-item nav-link">
-                    Shirts
-                  </a>
-                  <a href="" className="nav-item nav-link">
-                    Jeans
-                  </a>
-                  <a href="" className="nav-item nav-link">
-                    Swimwear
-                  </a>
-                  <a href="" className="nav-item nav-link">
-                    Sleepwear
-                  </a>
-                  <a href="" className="nav-item nav-link">
-                    Sportswear
-                  </a>
-                  <a href="" className="nav-item nav-link">
-                    Jumpsuits
-                  </a>
-                  <a href="" className="nav-item nav-link">
-                    Blazers
-                  </a>
-                  <a href="" className="nav-item nav-link">
-                    Jackets
-                  </a>
-                  <a href="" className="nav-item nav-link">
-                    Shoes
-                  </a>
-                </div>
-              </nav>
-            </div>
+            <div className="col-lg-3 d-none d-lg-block"></div>
             <div className="col-lg-9">
-              <nav className="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-                <a href="" className="text-decoration-none d-block d-lg-none">
-                  <h1 className="m-0 display-5 font-weight-semi-bold">
-                    <span className="text-primary font-weight-bold border px-3 mr-1">
-                      E
-                    </span>
-                    Shopper
-                  </h1>
-                </a>
-                <button
-                  type="button"
-                  className="navbar-toggler"
-                  data-toggle="collapse"
-                  data-target="#navbarCollapse"
-                >
-                  <span className="navbar-toggler-icon" />
-                </button>
-                <div
-                  className="collapse navbar-collapse justify-content-between"
-                  id="navbarCollapse"
-                >
-                  <div className="navbar-nav mr-auto py-0">
-                    <a href="index.html" className="nav-item nav-link active">
-                      Home
-                    </a>
-                    <a href="shop.html" className="nav-item nav-link">
-                      Shop
-                    </a>
-                    <a href="detail.html" className="nav-item nav-link">
-                      Shop Detail
-                    </a>
-                    <div className="nav-item dropdown">
-                      <a
-                        href="#"
-                        className="nav-link dropdown-toggle"
-                        data-toggle="dropdown"
-                      >
-                        Pages
-                      </a>
-                      <div className="dropdown-menu rounded-0 m-0">
-                        <a href="cart.html" className="dropdown-item">
-                          Shopping Cart
-                        </a>
-                        <a href="checkout.html" className="dropdown-item">
-                          Checkout
-                        </a>
-                      </div>
-                    </div>
-                    <a href="contact.html" className="nav-item nav-link">
-                      Contact
-                    </a>
-                  </div>
-                  <div className="navbar-nav ml-auto py-0">
-                    <a href="" className="nav-item nav-link">
-                      Login
-                    </a>
-                    <a href="" className="nav-item nav-link">
-                      Register
-                    </a>
-                  </div>
-                </div>
-              </nav>
               <div
                 id="header-carousel"
                 className="carousel slide"
                 data-ride="carousel"
               >
-                <div className="carousel-item active">
-                  <SimpleImageSlider
-                    images={images}
-                    showBullets={true}
-                    showNavs={true}
-                  />
-                </div>
-
                 <div className="carousel-inner">
                   <div className="carousel-item active">
                     <SimpleImageSlider
@@ -279,7 +61,7 @@ export default function home() {
                           10% Off Your First Order
                         </h4>
                         <h3 className="display-4 text-white font-weight-semi-bold mb-4">
-                          Fashionable Dress
+                          Fashionable Clothes
                         </h3>
                         <a href="" className="btn btn-light py-2 px-3">
                           Shop Now
@@ -308,30 +90,6 @@ export default function home() {
                     </div>
                   </div>
                 </div>
-                <a
-                  className="carousel-control-prev"
-                  href="#header-carousel"
-                  data-slide="prev"
-                >
-                  <div
-                    className="btn btn-dark"
-                    style={{ width: 45, height: 45 }}
-                  >
-                    <span className="carousel-control-prev-icon mb-n2" />
-                  </div>
-                </a>
-                <a
-                  className="carousel-control-next"
-                  href="#header-carousel"
-                  data-slide="next"
-                >
-                  <div
-                    className="btn btn-dark"
-                    style={{ width: 45, height: 45 }}
-                  >
-                    <span className="carousel-control-next-icon mb-n2" />
-                  </div>
-                </a>
               </div>
             </div>
           </div>
@@ -453,12 +211,12 @@ export default function home() {
             <div className="col-md-6 pb-4">
               <div className="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
                 <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4Okq0GF46x_b4M0qZmcUSumU7xmA-lhb314BdZJcUqqPyGU35"
+                  src="https://i.pinimg.com/originals/74/db/38/74db381d0642cb7efaf11bc8de99a8d8.jpg"
                   alt=""
                 />
                 <div className="position-relative" style={{ zIndex: 1 }}>
                   <h5 className="text-uppercase text-primary mb-3">
-                    20% off the all order
+                    10% off the all order
                   </h5>
                   <h1 className="mb-4 font-weight-semi-bold">
                     Spring Collection
@@ -475,12 +233,12 @@ export default function home() {
             <div className="col-md-6 pb-4">
               <div className="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
                 <img
-                  src="https://img.freepik.com/psd-gratuit/vue-face-t-shirt-blanc-isole_125540-1194.jpg?w=360"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTBPlY6C4QhR75kVdiHwcJHDZ7ZO2IbRGoQ&usqp=CAU"
                   alt=""
                 />
                 <div className="position-relative" style={{ zIndex: 1 }}>
                   <h5 className="text-uppercase text-primary mb-3">
-                    20% off the all order
+                    10% off the all order
                   </h5>
                   <h1 className="mb-4 font-weight-semi-bold">
                     Winter Collection
@@ -507,8 +265,7 @@ export default function home() {
                   <span className="bg-secondary px-2">Stay Updated</span>
                 </h2>
                 <p>
-                  Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet
-                  diam labore at justo ipsum eirmod duo labore labore.
+                  Don’t miss any updates of our new offers and features lll.!
                 </p>
               </div>
               <form action="">
@@ -529,134 +286,7 @@ export default function home() {
         {/* Subscribe End */}
 
         {/* Footer Start */}
-        <div className="container-fluid bg-secondary text-dark mt-5 pt-5">
-          <div className="row px-xl-5 pt-5">
-            <div className="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-              <a href="" className="text-decoration-none">
-                <h1 className="mb-4 display-5 font-weight-semi-bold">
-                  <span className="text-primary font-weight-bold border border-white px-3 mr-1">
-                    E
-                  </span>
-                  Shopper
-                </h1>
-              </a>
-              <p>
-                Dolore erat dolor sit lorem vero amet. Sed sit lorem magna,
-                ipsum no sit erat lorem et magna ipsum dolore amet erat.
-              </p>
-              <p className="mb-2">
-                <i className="fa fa-map-marker-alt text-primary mr-3" />
-                123 Street, New York, USA
-              </p>
-              <p className="mb-2">
-                <i className="fa fa-envelope text-primary mr-3" />
-                info@example.com
-              </p>
-              <p className="mb-0">
-                <i className="fa fa-phone-alt text-primary mr-3" />
-                +012 345 67890
-              </p>
-            </div>
-            <div className="col-lg-8 col-md-12">
-              <div className="row">
-                <div className="col-md-4 mb-5">
-                  <h5 className="font-weight-bold text-dark mb-4">
-                    Quick Links
-                  </h5>
-                  <div className="d-flex flex-column justify-content-start">
-                    <a className="text-dark mb-2" href="index.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Home
-                    </a>
-                    <a className="text-dark mb-2" href="shop.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Our Shop
-                    </a>
-                    <a className="text-dark mb-2" href="detail.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Shop Detail
-                    </a>
-                    <a className="text-dark mb-2" href="cart.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Shopping Cart
-                    </a>
-                    <a className="text-dark mb-2" href="checkout.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Checkout
-                    </a>
-                    <a className="text-dark" href="contact.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Contact Us
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4 mb-5">
-                  <h5 className="font-weight-bold text-dark mb-4">
-                    Quick Links
-                  </h5>
-                  <div className="d-flex flex-column justify-content-start">
-                    <a className="text-dark mb-2" href="index.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Home
-                    </a>
-                    <a className="text-dark mb-2" href="shop.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Our Shop
-                    </a>
-                    <a className="text-dark mb-2" href="detail.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Shop Detail
-                    </a>
-                    <a className="text-dark mb-2" href="cart.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Shopping Cart
-                    </a>
-                    <a className="text-dark mb-2" href="checkout.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Checkout
-                    </a>
-                    <a className="text-dark" href="contact.html">
-                      <i className="fa fa-angle-right mr-2" />
-                      Contact Us
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4 mb-5">
-                  <h5 className="font-weight-bold text-dark mb-4">
-                    Newsletter
-                  </h5>
-                  <form action="">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control border-0 py-4"
-                        placeholder="Your Name"
-                        required="required"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="email"
-                        className="form-control border-0 py-4"
-                        placeholder="Your Email"
-                        required="required"
-                      />
-                    </div>
-                    <div>
-                      <button
-                        className="btn btn-primary btn-block border-0 py-3"
-                        type="submit"
-                      >
-                        Subscribe Now
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Footer End */}
+        <Footer />
         {/* Back to Top */}
         <a href="#" className="btn btn-primary back-to-top">
           <i className="fa fa-angle-double-up" />

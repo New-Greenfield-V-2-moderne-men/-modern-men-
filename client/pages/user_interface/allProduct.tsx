@@ -1,4 +1,6 @@
-import React from "react";
+//@ts-nocheck
+import React,{useState,useEffect} from "react"; 
+import { GetStaticPaths, GetStaticProps } from "next";
 import Navbar from "./Navbar";
 import Filter from "./Filter";
 import Footer from "./Footer";
@@ -8,9 +10,25 @@ import {
   faEye,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/router";
-export default function allProduct() {
-  const router = useRouter();
+import { useRouter } from "next/router";  
+import Router from "next/router"; 
+import Link from "next/link";
+
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await fetch("http://localhost:4000/product");
+  const data = await response.json();
+  return {
+    props: {
+      data
+    },
+  }; 
+};
+
+export default function allProduct({data}) { 
+  
+  const router = useRouter(); 
+
   return (
     <div>
       <>
@@ -62,40 +80,41 @@ export default function allProduct() {
                   </div>
                 </div>
 
-                <div className="col-lg-4 col-md-6 col-sm-12 pb-1">
+                <div className="col-lg-4 col-md-6 col-sm-12 pb-1"> 
+                {data.map((e)=>{ return(
                   <div className="card product-item border-0 mb-4">
                     <div className="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                       <img
                         className="img-fluid w-100"
-                        src="https://static.bershka.net/4/photos2/2023/V/0/2/p/2813/900/800//02/2813900800_2_4_3.jpg?t=1662043993423"
+                        src= {e.imageUrl}
                         alt=""
                       />
                     </div>
                     <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                      <h6 className="text-truncate mb-3">Product Name</h6>
+                      <h6 className="text-truncate mb-3">{e.productName}</h6>
                       <div className="d-flex justify-content-center">
-                        <h6> 50 dt</h6>
+                        <h6> {e.price} dt</h6>
                         <h6 className="text-muted ml-2">
                           <del>60 dt</del>
                         </h6>
                       </div>
                     </div>
-                    <div className="card-footer d-flex justify-content-between bg-light border">
-                      <a
-                        onClick={() => {
-                          router.push("../user_interface/ProductDetail");
-                        }}
+                    <div className="card-footer d-flex justify-content-between bg-light border"> 
+
+                    
+                      <Link
+                       href={"/user_interface/ProductDetails/id" } as = {`/user_interface/ProductDetails/${e._id}`}
                         className="btn btn-sm text-dark p-0"
                       >
                         <FontAwesomeIcon icon={faEye} />
                         View Detail
-                      </a>
+                      </Link>
                       <a href="" className="btn btn-sm text-dark p-0">
                         <FontAwesomeIcon icon={faShoppingCart} />
                         Add To Cart
                       </a>
                     </div>
-                  </div>
+                  </div>)})}
                 </div>
 
                 {/* //////////////////////// */}

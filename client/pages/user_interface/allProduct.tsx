@@ -15,6 +15,7 @@ import Router from "next/router";
 import Link from "next/link";
 
 
+
 export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch("http://localhost:4000/product");
   const data = await response.json();
@@ -24,10 +25,23 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   }; 
 };
-
-export default function allProduct({data}) { 
+export default function allProduct({data}) {  
+  const [stock,setStock] = useState([])  
+  const [searched,setSearched] = useState('')
+  console.log(stock); 
+  useEffect(()=>{ 
+    setStock(data)
+  },[searched!==""])
   
-  const router = useRouter(); 
+  const router = useRouter();  
+  const handleSearch=()=>{ 
+    if (searched=== '') {    setStock(data)} 
+    setStock((data)=>{  
+      return  data.filter((element)=>{ 
+        return element.productName.toLowerCase().includes(searched.toLowerCase())
+      })
+    })
+  }
 
   return (
     <div>
@@ -68,10 +82,12 @@ export default function allProduct({data}) {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Search by name"
+                          placeholder="Search by name" 
+                          onChange={(e)=>{setSearched(e.target.value)}}
+                          
                         />
                         <div className="input-group-append">
-                          <span className="input-group-text bg-transparent text-primary">
+                          <span className="input-group-text bg-transparent text-primary" onClick={()=>{handleSearch()}}>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                           </span>
                         </div>
@@ -81,7 +97,7 @@ export default function allProduct({data}) {
                 </div>
 
                 <div className="col-lg-4 col-md-6 col-sm-12 pb-1"> 
-                {data.map((e)=>{ return(
+                {stock.map((e)=>{ return(
                   <div className="card product-item border-0 mb-4">
                     <div className="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                       <img

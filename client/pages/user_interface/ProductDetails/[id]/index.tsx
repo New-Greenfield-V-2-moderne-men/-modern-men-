@@ -1,8 +1,8 @@
 //@ts-nocheck
-import React,{useEffect,useState} from "react";
-import { useRouter } from "next/router"; 
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
-import Navbar from "../../Navbar"
+import Navbar from "../../Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -14,31 +14,23 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import Footer from "../../Footer"
+import Footer from "../../Footer";
 
-
-
-
-export default function ProductDetail() {  
-  const router =useRouter()
-  const [data, setData] = useState([]); 
-  console.log(data);
-  
+export default function ProductDetail() {
+  const router = useRouter();
+  const [data, setData] = useState([]);
+  const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     if (router.isReady) {
       // Code using query)
 
-      
       axios
         .get(`http://localhost:4000/product/${router.query.id}`)
         .then((res) => setData(res.data))
         .catch((err) => console.log(err));
     }
   }, [router.isReady]);
-
-
-
 
   return (
     <div>
@@ -72,7 +64,7 @@ export default function ProductDetail() {
                   <div className="carousel-item active">
                     <img
                       className="w-100 h-100"
-                      src= {data.imageUrl}
+                      src={data.imageUrl}
                       alt="Image"
                     />
                   </div>
@@ -80,13 +72,19 @@ export default function ProductDetail() {
               </div>
             </div>
             <div className="col-lg-7 pb-5">
+              <br />
+              <br />
+
               <h3 className="font-weight-semi-bold">{data.productName}</h3>
-
-              <h3 className="font-weight-semi-bold mb-4">{data.price} DT</h3>
-              <p className="mb-4">
-             color : {data.color}
-              </p>
-
+              <br />
+              <br />
+              <h4> Description :</h4>
+              <p>{data.description}</p>
+              <p className="mb-4">color : {data.color}</p>
+              <h4 className="font-weight-semi-bold mb-4">
+                {" "}
+                Price :{data.price} DT
+              </h4>
               <div className="d-flex align-items-center mb-4 pt-2">
                 <div
                   className="input-group quantity mr-3"
@@ -94,17 +92,25 @@ export default function ProductDetail() {
                 >
                   <div className="input-group-btn">
                     <button className="btn btn-primary btn-minus">
-                      <FontAwesomeIcon icon={faMinus} />
+                      <FontAwesomeIcon
+                        onClick={() => {
+                          amount > 1 && setAmount((prev) => prev - 1);
+                        }}
+                        icon={faMinus}
+                      />
                     </button>
                   </div>
                   <input
                     type="text"
                     className="form-control bg-secondary text-center"
-                    defaultValue={2}
+                    defaultValue={amount}
                   />
                   <div className="input-group-btn">
                     <button className="btn btn-primary btn-plus">
-                      <FontAwesomeIcon icon={faPlus} />
+                      <FontAwesomeIcon
+                        onClick={() => setAmount((prev) => prev + 1)}
+                        icon={faPlus}
+                      />
                     </button>
                   </div>
                 </div>
@@ -112,6 +118,9 @@ export default function ProductDetail() {
                   <FontAwesomeIcon icon={faShoppingCart} /> Add To Cart
                 </button>
               </div>
+              <h3>
+                Total : <span>{data.price * amount} dt </span>
+              </h3>
               <div className="d-flex pt-2">
                 <b className="text-dark font-weight-medium mb-0 mr-2">
                   Share on:
@@ -147,9 +156,7 @@ export default function ProductDetail() {
               <div className="tab-content">
                 <div className="tab-pane fade show active" id="tab-pane-1">
                   <h4 className="mb-3">Product Description</h4>
-                  <p>
-                 {data.description}
-                  </p>
+                  <p>{data.description}</p>
                 </div>
               </div>
             </div>

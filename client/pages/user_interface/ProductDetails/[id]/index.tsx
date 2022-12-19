@@ -1,5 +1,8 @@
-import React from "react";
-import Navbar from "./Navbar";
+//@ts-nocheck
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Navbar from "../../Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -11,8 +14,24 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import Footer from "./Footer";
+import Footer from "../../Footer";
+
 export default function ProductDetail() {
+  const router = useRouter();
+  const [data, setData] = useState([]);
+  const [amount, setAmount] = useState(1);
+
+  useEffect(() => {
+    if (router.isReady) {
+      // Code using query)
+
+      axios
+        .get(`http://localhost:4000/product/${router.query.id}`)
+        .then((res) => setData(res.data))
+        .catch((err) => console.log(err));
+    }
+  }, [router.isReady]);
+
   return (
     <div>
       <>
@@ -45,7 +64,7 @@ export default function ProductDetail() {
                   <div className="carousel-item active">
                     <img
                       className="w-100 h-100"
-                      src="https://contents.mediadecathlon.com/p1306727/k$8f5c11a23693ecb09f0f73a556aa2683/water-t-shirt-uv-homme-blanc.jpg?&f=800x800"
+                      src={data.imageUrl}
                       alt="Image"
                     />
                   </div>
@@ -53,17 +72,19 @@ export default function ProductDetail() {
               </div>
             </div>
             <div className="col-lg-7 pb-5">
-              <h3 className="font-weight-semi-bold">product name</h3>
+              <br />
+              <br />
 
-              <h3 className="font-weight-semi-bold mb-4">50 dt</h3>
-              <p className="mb-4">
-                Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr
-                erat diam stet sit clita ea. Sanc invidunt ipsum et, labore
-                clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy.
-                Accus labore stet, est lorem sit diam sea et justo, amet at
-                lorem et eirmod ipsum diam et rebum kasd rebum.
-              </p>
-
+              <h3 className="font-weight-semi-bold">{data.productName}</h3>
+              <br />
+              <br />
+              <h4> Description :</h4>
+              <p>{data.description}</p>
+              <p className="mb-4">color : {data.color}</p>
+              <h4 className="font-weight-semi-bold mb-4">
+                {" "}
+                Price :{data.price} DT
+              </h4>
               <div className="d-flex align-items-center mb-4 pt-2">
                 <div
                   className="input-group quantity mr-3"
@@ -71,17 +92,25 @@ export default function ProductDetail() {
                 >
                   <div className="input-group-btn">
                     <button className="btn btn-primary btn-minus">
-                      <FontAwesomeIcon icon={faMinus} />
+                      <FontAwesomeIcon
+                        onClick={() => {
+                          amount > 1 && setAmount((prev) => prev - 1);
+                        }}
+                        icon={faMinus}
+                      />
                     </button>
                   </div>
                   <input
                     type="text"
                     className="form-control bg-secondary text-center"
-                    defaultValue={2}
+                    defaultValue={amount}
                   />
                   <div className="input-group-btn">
                     <button className="btn btn-primary btn-plus">
-                      <FontAwesomeIcon icon={faPlus} />
+                      <FontAwesomeIcon
+                        onClick={() => setAmount((prev) => prev + 1)}
+                        icon={faPlus}
+                      />
                     </button>
                   </div>
                 </div>
@@ -89,6 +118,9 @@ export default function ProductDetail() {
                   <FontAwesomeIcon icon={faShoppingCart} /> Add To Cart
                 </button>
               </div>
+              <h3>
+                Total : <span>{data.price * amount} dt </span>
+              </h3>
               <div className="d-flex pt-2">
                 <b className="text-dark font-weight-medium mb-0 mr-2">
                   Share on:
@@ -124,13 +156,7 @@ export default function ProductDetail() {
               <div className="tab-content">
                 <div className="tab-pane fade show active" id="tab-pane-1">
                   <h4 className="mb-3">Product Description</h4>
-                  <p>
-                    Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr
-                    erat diam stet sit clita ea. Sanc invidunt ipsum et, labore
-                    clita lorem magna lorem ut. Erat lorem duo dolor no sea
-                    nonumy. Accus labore stet, est lorem sit diam sea et justo,
-                    amet at lorem et eirmod ipsum diam et rebum kasd rebum.
-                  </p>
+                  <p>{data.description}</p>
                 </div>
               </div>
             </div>

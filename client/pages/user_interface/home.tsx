@@ -156,7 +156,7 @@ export default function home() {
                 >
                   <img
                     className="img-fluid"
-                    src="https://www.classb.com/wordpress/wp-content/uploads/2016/11/Shooting_Clay_idea_SP6024.png"
+                    src="https://static.zara.net/photos///2022/V/0/2/p/0722/401/251/2/w/750/0722401251_6_1_1.jpg?ts=1646320439736"
                     alt=""
                   />
                 </a>
@@ -176,7 +176,7 @@ export default function home() {
                 >
                   <img
                     className="img-fluid"
-                    src="https://www.classb.com/wordpress/wp-content/uploads/2016/11/Shooting_Clay_idea_SP6024.png"
+                    src="https://static.zara.net/photos///2022/I/0/2/p/8727/335/406/2/w/750/8727335406_6_1_1.jpg?ts=1664793001022"
                     alt=""
                   />
                 </a>
@@ -195,7 +195,7 @@ export default function home() {
                 >
                   <img
                     className="img-fluid"
-                    src="https://www.classb.com/wordpress/wp-content/uploads/2016/11/Shooting_Clay_idea_SP6024.png"
+                    src="https://static.zara.net/photos///2022/I/1/2/p/2002/020/040/2/w/750/2002020040_6_1_1.jpg?ts=1660728596456"
                     alt=""
                   />
                 </a>

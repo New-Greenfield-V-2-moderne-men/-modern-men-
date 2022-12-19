@@ -98,6 +98,25 @@ const getAll = async (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
-};
+};   
 
-module.exports = { register, login, getAll };
+
+const addCart = async (req, res) => {
+ console.log("add");
+  try {   
+    await users.updateOne( 
+      { _id : req.params.id}, 
+      { $push: { cart : req.body  } } ) 
+     
+      res.status(200).send("posted to cart ");
+    } catch (err) {
+      res.status(500).send(err);
+    }
+ 
+};  
+
+
+
+
+
+module.exports = { register, login, getAll , addCart };

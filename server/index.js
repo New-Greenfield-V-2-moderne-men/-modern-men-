@@ -12,7 +12,8 @@ app.get("/", function (req, res) {
 });
 app.use("/users", require("./user/userRoutes"));
 app.use("/product", require("./Product/ProductRouter"));
-app.use("/favorite", require("./favorite/favoriteRoutes"));
+app.use("/favorite", require("./favorite/favoriteRoutes")); 
+
 
 var port = 4000;
 

@@ -1,4 +1,5 @@
-import React from "react";
+//@ts-nocheck
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import {
   faFacebookF,
@@ -6,11 +7,52 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+
 
 export default function Login() {
   const router = useRouter();
-  console.log("fegeg");
+  
+  const[email,setEmail]=useState("")
+  const[password,setPassword]=useState("")
+  let [errormessage, setErrormessage] = useState("");
+  let [error, setError] = useState(false);
+  // console.log("fegeg");
+  const handleLogin= async ()=>{
+  try{
+      const loginReq= await axios.post('http://localhost:4000/users/login',{
+        email:email,
+        password:password
+      })
+      .then((response)=>{
+        const encodedToken =response.data.token.toString().split(".")[1];
+        const decodedToken= atob(encodedToken )
+        const payload=JSON.parse(decodedToken);
+        localStorage.setItem("IS_ADMIN", payload.isAdmin);
+        localStorage.setItem("USER_ID", payload.id);
+        localStorage.setItem("USER_NAME", payload.name);
+      })
+      .then(()=>{
+        displayComponent();
+      });
+    }catch(error){
+      console.log(error.response.data.message);
+      setErrormessage(error.response.data.message);
+      setError(true);
+    }
+  }
 
+  const displayComponent = () => {
+    let GetRole = localStorage.getItem("IS_ADMIN");
+    let Parsed_Get_Role = JSON.parse(GetRole);
+
+    console.log("test", Parsed_Get_Role);
+    if (Parsed_Get_Role === true) {
+      return router.push("/AdminUserLayout");
+    } else if (Parsed_Get_Role === false) {
+      return router.push("/user_interface/home");
+    }
+  };
   return (
     <div>
       <>
@@ -42,9 +84,10 @@ export default function Login() {
                     </label>
                     <input
                       type="text"
-                      name="your_name"
+                      name="your_email"
                       id="your_name"
-                      placeholder="Your Name"
+                      placeholder="Your_email"
+                      onChange={(e)=>{setEmail(e.target.value)}}
                     />
                   </div>
                   <div className="form-group">
@@ -56,11 +99,12 @@ export default function Login() {
                       name="your_pass"
                       id="your_pass"
                       placeholder="Password"
+                      onChange={(e)=>{setPassword(e.target.value)}}
                     />
                   </div>
                   <div className="form-group">
                     <input
-                      type="checkbox"
+                      type="text"
                       name="remember-me"
                       id="remember-me"
                       className="agree-term"
@@ -76,6 +120,7 @@ export default function Login() {
                 </form>
                 <button
                   onClick={() => {
+                    handleLogin();
                     router.push("../user_interface/home");
                   }}
                   id="signin"

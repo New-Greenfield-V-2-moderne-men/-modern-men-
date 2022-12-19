@@ -1,13 +1,29 @@
 //@ts-nocheck
-import React, { useState, useEffect } from "react";
+import React,{useState,useRef} from "react";
+
+export const getStaticProps = async () => {
+  const res = await fetch("http://localhost:4000/product");
+  const data = await res.json();
+  console.log(data);
+  
+ return { props:{products:data}
+}
+
+}
+
 export default function Filter() {
-  let [value, setValue] = useState(0);
+  // console.log(products);
+  
 
-  console.log(value);
 
-  const handleChange = (data) => {
-    setValue(data);
-  };
+
+
+
+
+ 
+
+   
+
 
   return (
     <div>
@@ -20,11 +36,14 @@ export default function Filter() {
             <input
               type="checkbox"
               className="custom-control-input"
-              defaultChecked="All Price"
+              defaultChecked="all-price"
               id="price-all"
+              value={allprice}
+              onChange={()=>handleChange("allprice")}
             />
             <label className="custom-control-label" htmlFor="price-all">
               All Price
+              
             </label>
           </div>
           <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -32,6 +51,7 @@ export default function Filter() {
               type="checkbox"
               className="custom-control-input"
               id="price-1"
+              
             />
             <label className="custom-control-label" htmlFor="price-1">
               0 - 100 dt
@@ -42,6 +62,7 @@ export default function Filter() {
               type="checkbox"
               className="custom-control-input"
               id="price-2"
+            
             />
             <label className="custom-control-label" htmlFor="price-2">
               100 - 200 dt
@@ -52,6 +73,7 @@ export default function Filter() {
               type="checkbox"
               className="custom-control-input"
               id="price-3"
+              // checked={false}
             />
             <label className="custom-control-label" htmlFor="price-3">
               200 - 300 dt
@@ -62,6 +84,7 @@ export default function Filter() {
               type="checkbox"
               className="custom-control-input"
               id="price-4"
+              // checked={false}
             />
             <label className="custom-control-label" htmlFor="price-4">
               300 - 400 dt
@@ -72,6 +95,7 @@ export default function Filter() {
               type="checkbox"
               className="custom-control-input"
               id="price-5"
+              checked={false}
             />
             <label className="custom-control-label" htmlFor="price-5">
               400 - 500 dt

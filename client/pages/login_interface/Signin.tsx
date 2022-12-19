@@ -1,8 +1,33 @@
-import React from "react";
+
+//@ts-nocheck
+import React, { useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 export default function Signin() {
   const router = useRouter();
+  const [email, setEmail] = useState("")
+  const [name, setName] = useState("")
+  const [password, setPassword] = useState("")
+  const [messageError, setMessageError] = useState("")
+  const [error, setError] = useState(false)
 
+  const handleSignUp = async () => {
+
+    axios.post("http://localhost:4000/users/register", {
+      name: name,
+      email: email,
+      password: password,
+      isAdmin: false
+    })
+      .then(() => {
+        alert("account has been created")
+        router.push("/user_interface/home")
+      }).catch((error) => {
+        console.log(error.response.data.message);
+        setMessageError(error.response.data.message)
+        setError(true);
+      })
+  }
   return (
     <div>
       {" "}
@@ -21,6 +46,7 @@ export default function Signin() {
                     name="name"
                     id="name"
                     placeholder="Your Name"
+                    onChange={(e) => { setName(e.target.value) }}
                   />
                 </div>
                 <div className="form-group">
@@ -32,6 +58,7 @@ export default function Signin() {
                     name="email"
                     id="email"
                     placeholder="Your Email"
+                    onChange={(e) => { setEmail(e.target.value) }}
                   />
                 </div>
                 <div className="form-group">
@@ -43,18 +70,14 @@ export default function Signin() {
                     name="pass"
                     id="pass"
                     placeholder="Password"
+                    onChange={(e) => { setPassword(e.target.value) }}
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor="re-pass">
                     <i className="zmdi zmdi-lock-outline" />
                   </label>
-                  <input
-                    type="password"
-                    name="re_pass"
-                    id="re_pass"
-                    placeholder="Repeat your password"
-                  />
+
                 </div>
                 <div className="form-group">
                   <input
@@ -77,10 +100,16 @@ export default function Signin() {
 
                 </div>
               </form>
-              <button name="signup" id="signup" className="form-submit">
+              <button name="signup" id="signup" className="form-submit"
+                onClick={() => {
+                  handleSignUp()
+                }}>
                 {" "}
-                Sign In
+                Sign Up
               </button>
+              <div>
+                {error ? <p style={{ color: "red" }}>{messageError}</p> : null}{" "}
+              </div>
             </div>
             <div className="signup-image">
               <figure>

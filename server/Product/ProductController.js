@@ -22,8 +22,7 @@ const createOne = async (req, res) => {
       price: req.body.price,
       imageUrl: req.body.imageUrl,
       color: req.body.color,
-     
-     
+
       // adminId: req.adminId["_id"],
     });
     res.status(201).send(productPosted);
@@ -51,21 +50,16 @@ const updateOne = async (req, res) => {
     console.log(err);
   }
 };
-// delete a product   
+// delete a product
 
-const findOne = async(req,res)=>{ 
-try {  
-  const find = await product.findOne(  
-    {  category : req.body.category   }
-  ) 
-  res.send(find) ;
-} catch (err){ 
-  console.log(err);
-}
-}
-
-
- 
+const findOne = async (req, res) => {
+  try {
+    const find = await product.findOne({ category: req.body.category });
+    res.send(find);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const deleteOne = async (req, res) => {
   const id = req.params.id;
@@ -79,7 +73,6 @@ const deleteOne = async (req, res) => {
   }
 };
 
-// get one product
 const getOne = async (req, res) => {
   try {
     const giveOne = await product.findById(req.params.id);
@@ -90,4 +83,25 @@ const getOne = async (req, res) => {
   }
 };
 
-module.exports = { deleteOne, updateOne, createOne, getAll, getOne,findOne };
+// get product by thier price
+
+const FilterProductbyPrice = async (req, res) => {
+  try {
+    const min = req.body.min;
+    const max = req.body.max;
+    const pro = await product.find({ price: { $gt: min, $lt: max } });
+    res.status(200).send(pro);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+module.exports = {
+  deleteOne,
+  updateOne,
+  createOne,
+  getAll,
+  getOne,
+  findOne,
+  FilterProductbyPrice,
+};

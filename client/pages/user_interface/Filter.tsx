@@ -1,6 +1,14 @@
 //@ts-nocheck
-import React from "react";
+import React, { useState, useEffect } from "react";
 export default function Filter() {
+  let [value, setValue] = useState(0);
+
+  console.log(value);
+
+  const handleChange = (data) => {
+    setValue(data);
+  };
+
   return (
     <div>
       {" "}

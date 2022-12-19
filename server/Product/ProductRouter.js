@@ -7,16 +7,19 @@ const {
   getOne,
   deleteOne,
   createOne,
-  updateOne, 
-  findOne
+  updateOne,
+  findOne,
+  FilterProductbyPrice,
 } = require("./ProductController");
 
-router.get("/", getAll); 
-router.get("/find",findOne)
+router.get("/getall", getAll);
+router.get("/find", findOne);
 router.get("/:id", getOne);
 
 router.delete("/:id", deleteOne);
 router.put("/:id", updateOne);
-router.post("/", createOne);
+router.post("/add", createOne);
+
+router.get("/price", FilterProductbyPrice);
 
 module.exports = router;

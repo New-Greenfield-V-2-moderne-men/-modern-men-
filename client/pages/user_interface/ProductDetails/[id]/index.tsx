@@ -1,5 +1,8 @@
-import React from "react";
-import Navbar from "./Navbar";
+//@ts-nocheck
+import React,{useEffect,useState} from "react";
+import { useRouter } from "next/router"; 
+import axios from "axios";
+import Navbar from "../../Navbar"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -11,8 +14,32 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import Footer from "./Footer";
-export default function ProductDetail() {
+import Footer from "../../Footer"
+
+
+
+
+export default function ProductDetail() {  
+  const router =useRouter()
+  const [data, setData] = useState([]); 
+  console.log(data);
+  
+
+  useEffect(() => {
+    if (router.isReady) {
+      // Code using query)
+
+      
+      axios
+        .get(`http://localhost:4000/product/${router.query.id}`)
+        .then((res) => setData(res.data))
+        .catch((err) => console.log(err));
+    }
+  }, [router.isReady]);
+
+
+
+
   return (
     <div>
       <>
@@ -45,7 +72,7 @@ export default function ProductDetail() {
                   <div className="carousel-item active">
                     <img
                       className="w-100 h-100"
-                      src="https://contents.mediadecathlon.com/p1306727/k$8f5c11a23693ecb09f0f73a556aa2683/water-t-shirt-uv-homme-blanc.jpg?&f=800x800"
+                      src= {data.imageUrl}
                       alt="Image"
                     />
                   </div>
@@ -53,15 +80,11 @@ export default function ProductDetail() {
               </div>
             </div>
             <div className="col-lg-7 pb-5">
-              <h3 className="font-weight-semi-bold">product name</h3>
+              <h3 className="font-weight-semi-bold">{data.productName}</h3>
 
-              <h3 className="font-weight-semi-bold mb-4">50 dt</h3>
+              <h3 className="font-weight-semi-bold mb-4">{data.price} DT</h3>
               <p className="mb-4">
-                Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr
-                erat diam stet sit clita ea. Sanc invidunt ipsum et, labore
-                clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy.
-                Accus labore stet, est lorem sit diam sea et justo, amet at
-                lorem et eirmod ipsum diam et rebum kasd rebum.
+             color : {data.color}
               </p>
 
               <div className="d-flex align-items-center mb-4 pt-2">
@@ -125,11 +148,7 @@ export default function ProductDetail() {
                 <div className="tab-pane fade show active" id="tab-pane-1">
                   <h4 className="mb-3">Product Description</h4>
                   <p>
-                    Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr
-                    erat diam stet sit clita ea. Sanc invidunt ipsum et, labore
-                    clita lorem magna lorem ut. Erat lorem duo dolor no sea
-                    nonumy. Accus labore stet, est lorem sit diam sea et justo,
-                    amet at lorem et eirmod ipsum diam et rebum kasd rebum.
+                 {data.description}
                   </p>
                 </div>
               </div>

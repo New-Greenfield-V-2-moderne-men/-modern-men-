@@ -1,3 +1,4 @@
+
 var product = require("./ProductSchema");
 // Get all products
 const getAll = async (req, res) => {

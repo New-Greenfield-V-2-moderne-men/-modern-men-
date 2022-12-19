@@ -26,25 +26,45 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default function allProduct({ data }) {
-  const [allProducts, setAllProducts] = useState(data);
+  // const [allProducts, setAllProducts] = useState(data);
 
-  console.log("test", allProducts);
+  const [stock, setStock] = useState([]);
+  const [searched, setSearched] = useState("");
+  console.log(stock);
+  useEffect(() => {
+    setStock(data);
+  }, [searched !== ""]);
+
+  const router = useRouter();
+  const handleSearch = () => {
+    if (searched === "") {
+      setStock(data);
+    }
+    setStock((data) => {
+      return data.filter((element) => {
+        return element.productName
+          .toLowerCase()
+          .includes(searched.toLowerCase());
+      });
+    });
+  };
+
+  console.log("test", stock);
 
   const alldata = () => {
-    setAllProducts(data);
+    setStock(data);
   };
 
   const filterByPrice: any = (min: any, max: any) => {
-    const filtred = allProducts.filter((e) => e.price > min && e.price < max);
-    setAllProducts(filtred);
+    const filtred = stock.filter((e) => e.price > min && e.price < max);
+    setStock(filtred);
   };
 
   const filterByColor: any = (our_color) => {
-    const filtred = allProducts.filter((e) => e.color === our_color);
-    setAllProducts(filtred);
+    const filtred = stock.filter((e) => e.color === our_color);
+    setStock(filtred);
   };
 
-  const router = useRouter();
   return (
     <div>
       <>
@@ -310,9 +330,17 @@ export default function allProduct({ data }) {
                           type="text"
                           className="form-control"
                           placeholder="Search by name"
+                          onChange={(e) => {
+                            setSearched(e.target.value);
+                          }}
                         />
                         <div className="input-group-append">
-                          <span className="input-group-text bg-transparent text-primary">
+                          <span
+                            className="input-group-text bg-transparent text-primary"
+                            onClick={() => {
+                              handleSearch();
+                            }}
+                          >
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                           </span>
                         </div>
@@ -322,7 +350,7 @@ export default function allProduct({ data }) {
                 </div>
 
                 <div className="gridcontainer">
-                  {allProducts.map((e) => {
+                  {stock.map((e) => {
                     return (
                       <div className="card product-item border-0 mb-4">
                         <div className="card-header product-img position-relative overflow-hidden bg-transparent border p-0">

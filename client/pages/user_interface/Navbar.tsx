@@ -14,6 +14,7 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router"; 
+import Link from "next/link";
 
 
 export default function Navbar() {
@@ -88,15 +89,16 @@ export default function Navbar() {
             </form>
           </div>
           <div className="col-lg-3 col-6 text-right">
-            <a href="" className="btn border">
-              {/* <i className="fas fa-heart text-primary" /> */}
+            <Link href="/user_interface/favorite" className="btn border">
+              {/* <i className="fas fa-heart text-primary" /> */} 
+
               <FontAwesomeIcon icon={faHeart} />
               <span className="badge">0</span>
-            </a>
-            <a href="" className="btn border">
+            </Link>
+            <Link href="/user_interface/cart" className="btn border">
               <FontAwesomeIcon icon={faShoppingCart} />
               <span className="badge">0</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

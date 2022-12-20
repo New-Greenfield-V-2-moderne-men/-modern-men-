@@ -8,12 +8,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
   faEye,
+  faHeart,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import Router from "next/router";
 import Link from "next/link";
 import { setDefaultResultOrder } from "dns";
+import axios from "axios";
 
 export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch("http://localhost:4000/product/getall");
@@ -23,19 +25,56 @@ export const getStaticProps: GetStaticProps = async () => {
       data,
     },
   };
-};
+}; 
+
 
 export default function allProduct({ data }) {
   // const [allProducts, setAllProducts] = useState(data);
 
   const [stock, setStock] = useState([]);
-  const [searched, setSearched] = useState("");
-  console.log(stock);
+  const [searched, setSearched] = useState(""); 
+  const [user,setUser] =useState("") 
+  console.log(("user",user));
+  
+  const router = useRouter(); 
+
+  
+  useEffect(()=>{
+    if (typeof window !== 'undefined') {
+      
+      setUser(localStorage.getItem('USER_ID') ) 
+    }  
+  },[])
+  
+
+  // add to the user cart the products that he picked 
+  const addToCart=(e)=>{ 
+    axios.put(`http://localhost:4000/users/addCart/${user}`,e) 
+    .then(res => console.log("added to cart ")) 
+    .catch(err =>{ console.log(err)
+    })
+  }  
+
+  const addToFavorite=(e)=>{ 
+    axios.put(`http://localhost:4000/users/addFavorite/${user}`,e) 
+    .then(res => console.log("added to cart ")) 
+    .catch(err =>{ console.log(err)
+    })
+  } 
+
+
+
+  
+
+  
+
+
   useEffect(() => {
     setStock(data);
   }, [searched !== ""]);
 
-  const router = useRouter();
+
+
   const handleSearch = () => {
     if (searched === "") {
       setStock(data);
@@ -63,7 +102,10 @@ export default function allProduct({ data }) {
   const filterByColor: any = (our_color) => {
     const filtred = stock.filter((e) => e.color === our_color);
     setStock(filtred);
-  };
+  }; 
+
+
+
 
   return (
     <div>
@@ -379,8 +421,12 @@ export default function allProduct({ data }) {
                           >
                             <FontAwesomeIcon icon={faEye} />
                             View Detail
-                          </Link>
-                          <a href="" className="btn btn-sm text-dark p-0">
+                          </Link> 
+                          <a className="btn border" onClick={()=>{addToFavorite(e)}}>
+                          <FontAwesomeIcon icon={faHeart}  />
+                           <span className="badge">0</span>
+                          </a>
+                          <a  className="btn btn-sm text-dark p-0" onClick={()=>{ addToCart(e)}} >
                             <FontAwesomeIcon icon={faShoppingCart} />
                             Add To Cart
                           </a>

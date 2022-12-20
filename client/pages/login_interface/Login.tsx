@@ -107,31 +107,23 @@ export default function Login() {
                     />
                   </div>
                   <div className="form-group">
-                    <input
-                      type="text"
-                      name="remember-me"
-                      id="remember-me"
-                      className="agree-term"
-                    />
-                    <label htmlFor="remember-me" className="label-agree-term">
-                      <span>
-                        <span />
-                      </span>
-                      Remember me
-                    </label>
+              
                   </div>
                   <div className="form-group form-button"></div>
                 </form>
                 <button
                   onClick={() => {
                     handleLogin();
-                    router.push("../user_interface/home");
+                   
                   }}
                   id="signin"
                   className="form-submit"
                 >
                   Log In
                 </button>{" "}
+                <div>
+                {error ? <p style={{ color: "red" }}>{errormessage}</p> : null}{" "}
+              </div>
                 <div className="social-login">
                   <span className="social-label">Or login with</span>
                   <ul className="socials">

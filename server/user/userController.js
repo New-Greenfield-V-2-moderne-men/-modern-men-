@@ -32,6 +32,7 @@ async function login(req, res) {
         isAdmin: user["isAdmin"],
         name: user.name,
         email: user.email,
+        password:user.pwd
       },
       "SECRET"
     );
@@ -159,12 +160,17 @@ const deleteCart =async (req, res) => {
      }
   
  };   
-
-
- 
-
+  const getOneUser = async  (req, res)=>{
+  try{
+    const profil = await users.findOne({_id:req.params.id})
+    res.status(200).json(profil).send();
+    return;
+    }catch(err){
+    
+    console.log(err);
+    }
+  }
  const getOne = async(req,res)=>{   
-  
   try {   
     const oneUser = await users.findOne({_id : req.params.id}) 
     
@@ -176,7 +182,7 @@ const deleteCart =async (req, res) => {
   }
 
  }
-
+ 
  const deleteAll =async (req, res) => {
   console.log("add");
    try {   
@@ -194,4 +200,4 @@ const deleteCart =async (req, res) => {
 
 
 
-module.exports = { register, login, getAll , addCart , deleteCart,getOne,deleteAll ,addFavorite,deleteFavorite};
+module.exports = { register, login, getAll , addCart, deleteCart,getOne,deleteAll ,addFavorite,deleteFavorite,getOneUser};

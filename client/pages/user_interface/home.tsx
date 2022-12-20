@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React from "react";
+import React, { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,6 +30,16 @@ export default function home() {
       url: "https://www.k9ofmine.com/wp-content/uploads/2021/12/dog-modeling-jobs.jpg",
     },
   ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const PreviousImage = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+  const NextImage = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
 
   return (
     <div>
@@ -69,6 +79,37 @@ export default function home() {
                       </div>
                     </div>
                   </div>
+                  <a className="carousel-control-prev" data-slide="prev">
+                    <div
+                      onClick={() => {
+                        NextImage();
+                        console.log("gg");
+                      }}
+                      className="btn btn-dark"
+                      style={{ width: 45, height: 45 }}
+                    >
+                      <span className="carousel-control-prev-icon mb-n2" />
+                    </div>
+                  </a>
+                  <a
+                    className="carousel-control-next"
+                    href="#header-carousel"
+                    data-slide="next"
+                  >
+                    <div
+                      className="btn btn-dark"
+                      style={{ width: 45, height: 45 }}
+                    >
+                      <span
+                        onClick={() => {
+                          PreviousImage();
+                          console.log("gg");
+                        }}
+                        className="carousel-control-next-icon mb-n2"
+                      />
+                    </div>
+                  </a>
+
                   <div className="carousel-item" style={{ height: 410 }}>
                     <img
                       className="img-fluid"

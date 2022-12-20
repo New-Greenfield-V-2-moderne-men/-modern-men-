@@ -54,7 +54,7 @@ const updateOne = async (req, res) => {
 
 const findOne = async (req, res) => {
   try {
-    const find = await product.findOne({ category: req.body.category });
+    const find = await product.findOne({ category: req.params.category });
     res.send(find);
   } catch (err) {
     console.log(err);

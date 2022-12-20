@@ -8,9 +8,9 @@ import {
   faExchange,
   faPhoneVolume,
 } from "@fortawesome/free-solid-svg-icons";
-
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Link from "next/link";
 
 export default function home() {
   const images = [
@@ -31,6 +31,7 @@ export default function home() {
     },
   ];
 
+  // function of slides
   const [currentIndex, setCurrentIndex] = useState(0);
   const PreviousImage = () => {
     const isFirstSlide = currentIndex === 0;
@@ -73,9 +74,16 @@ export default function home() {
                         <h3 className="display-4 text-white font-weight-semi-bold mb-4">
                           Fashionable Clothes
                         </h3>
-                        <a href="" className="btn btn-light py-2 px-3">
-                          Shop Now
-                        </a>
+
+                        <Link
+                          href={{
+                            pathname: "./allProduct",
+                          }}
+                        >
+                          <span className="btn btn-light py-2 px-3">
+                            Shop Now
+                          </span>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -144,7 +152,6 @@ export default function home() {
                 className="d-flex align-items-center border mb-4"
                 style={{ padding: 20 }}
               >
-                <h1 className="fa fa-check text-primary m-0 mr-3" />
                 <FontAwesomeIcon icon={faCheck} style={{ padding: 20 }} />
                 <h5 className="font-weight-semi-bold m-0">Quality Product</h5>
               </div>
@@ -190,7 +197,7 @@ export default function home() {
                 className="cat-item d-flex flex-column border mb-4"
                 style={{ padding: 40 }}
               >
-                <p className="text-right">15 Products</p>
+                <p className="text-right">length : 15 Products</p>
                 <a
                   href=""
                   className="cat-img position-relative overflow-hidden mb-3"
@@ -199,9 +206,15 @@ export default function home() {
                     className="img-fluid"
                     src="https://static.zara.net/photos///2022/V/0/2/p/0722/401/251/2/w/750/0722401251_6_1_1.jpg?ts=1646320439736"
                     alt=""
-                  />
+                  />{" "}
                 </a>
-                <h5 className="font-weight-semi-bold m-0">T-shirt</h5>
+                <Link
+                  href={{
+                    pathname: "./category/T-Shirt",
+                  }}
+                >
+                  <h5 className="font-weight-semi-bold m-0">T-shirt</h5>
+                </Link>
               </div>
             </div>
 
@@ -221,7 +234,13 @@ export default function home() {
                     alt=""
                   />
                 </a>
-                <h5 className="font-weight-semi-bold m-0">Jeans</h5>
+                <Link
+                  href={{
+                    pathname: "./category/Jeans",
+                  }}
+                >
+                  <h5 className="font-weight-semi-bold m-0">Jeans</h5>
+                </Link>
               </div>
             </div>
             <div className="col-lg-4 col-md-6 pb-1">
@@ -240,7 +259,13 @@ export default function home() {
                     alt=""
                   />
                 </a>
-                <h5 className="font-weight-semi-bold m-0">Shoes</h5>
+                <Link
+                  href={{
+                    pathname: "./category/Shoes",
+                  }}
+                >
+                  <h5 className="font-weight-semi-bold m-0">Shoes</h5>
+                </Link>
               </div>
             </div>
           </div>

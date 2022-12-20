@@ -1,8 +1,10 @@
 //@ts-nocheck
 import React, { useState, useEffect } from "react";
-import { GetStaticPaths, GetStaticProps } from "next";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import { useRouter } from "next/router";
+import axios from "axios";
+
+import Navbar from "../Navbar";
+import Footer from "../Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -10,101 +12,27 @@ import {
   faHeart,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/router";
+
 import Link from "next/link";
 
-import axios from "axios";
+export default function Category(props) {
+  const [mydata, setMyData] = useState([]);
 
-export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch("http://localhost:4000/product/getall");
-  const data = await response.json();
-  return {
-    props: {
-      data,
-    },
-  };
-};
-
-export default function allProduct({ data }) {
   const router = useRouter();
-
-  const [stock, setStock] = useState([]);
-  const [searched, setSearched] = useState("");
-
-  const [user, setUser] = useState("");
-  console.log(("user", user));
-
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setUser(localStorage.getItem("USER_ID"));
-    }
+    axios
+      .get(`http://localhost:4000/product/find/${router.query.Category}`)
+      .then((response) => {
+        console.log("testtt", [response.data]);
+        setMyData([response.data]);
+      });
+    console.log(router.query.Category, "inside the useEffect");
   }, []);
-
-  // add to the user cart the products that he picked
-  const addToCart = (e) => {
-    axios
-      .put(`http://localhost:4000/users/addCart/${user}`, e)
-      .then((res) => console.log("added to cart "))
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const addToFavorite = (e) => {
-    axios
-      .put(`http://localhost:4000/users/addFavorite/${user}`, e)
-      .then((res) => console.log("added to cart "))
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  // filtre function
-  let GetFiltredDatabyPrice = (min, max) => {
-    axios
-      .post("http://localhost:4000/product/price", {
-        min: min,
-        max: max,
-      })
-      .then((result) => {
-        setStock(result.data);
-      });
-  };
-
-  let GetFiltredDatabyColor = (our_color) => {
-    axios
-      .post("http://localhost:4000/product/color", {
-        color: our_color,
-      })
-      .then((result) => {
-        setStock(result.data);
-      });
-  };
-
-  // searched Functions
-  useEffect(() => {
-    setStock(data);
-  }, [searched !== ""]);
-
-  const handleSearch = () => {
-    if (searched === "") {
-      setStock(data);
-    }
-    setStock((data) => {
-      return data.filter((element) => {
-        return element.productName
-          .toLowerCase()
-          .includes(searched.toLowerCase());
-      });
-    });
-  };
-
-  console.log("testdata", stock);
-
+  console.log("final", mydata);
   return (
     <div>
       <>
-        <Navbar />
+        {/* <Navbar />
         {/* Page Header Start */}
         <div className="container-fluid bg-secondary mb-5">
           <div
@@ -386,7 +314,7 @@ export default function allProduct({ data }) {
                 </div>
 
                 <div className="gridcontainer">
-                  {stock.map((e) => {
+                  {mydata.map((e) => {
                     return (
                       <div className="card product-item border-0 mb-4">
                         <div className="card-header product-img position-relative overflow-hidden bg-transparent border p-0">

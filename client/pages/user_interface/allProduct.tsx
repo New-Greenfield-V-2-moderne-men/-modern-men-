@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Navbar from "./Navbar";
-import Filter from "./Filter";
 import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,6 +16,7 @@ import Link from "next/link";
 import { setDefaultResultOrder } from "dns";
 import axios from "axios";
 
+
 export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch("http://localhost:4000/product/getall");
   const data = await response.json();
@@ -30,13 +30,15 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function allProduct({ data }) {
   // const [allProducts, setAllProducts] = useState(data);
+  const router = useRouter();
 
   const [stock, setStock] = useState([]);
   const [searched, setSearched] = useState(""); 
+
   const [user,setUser] =useState("") 
   console.log(("user",user));
   
-  const router = useRouter(); 
+  
 
   
   useEffect(()=>{
@@ -69,12 +71,35 @@ export default function allProduct({ data }) {
   
 
 
+
+  // filtre function
+  let GetFiltredDatabyPrice = (min, max) => {
+    axios
+      .post("http://localhost:4000/product/price", {
+        min: min,
+        max: max,
+      })
+      .then((result) => {
+        setStock(result.data);
+      });
+  };
+
+  let GetFiltredDatabyColor = (our_color) => {
+    axios
+      .post("http://localhost:4000/product/color", {
+        color: our_color,
+      })
+      .then((result) => {
+        setStock(result.data);
+      });
+  };
+
+  // searched Functions
   useEffect(() => {
     setStock(data);
   }, [searched !== ""]);
 
-
-
+  
   const handleSearch = () => {
     if (searched === "") {
       setStock(data);
@@ -88,21 +113,17 @@ export default function allProduct({ data }) {
     });
   };
 
-  console.log("test", stock);
+  console.log("testdata", stock);
 
-  const alldata = () => {
-    setStock(data);
-  };
+  // const filterByPrice: any = (min: any, max: any) => {
+  //   const filtred = stock.filter((e) => e.price > min && e.price < max);
+  //   setStock(filtred);
+  // };
 
-  const filterByPrice: any = (min: any, max: any) => {
-    const filtred = stock.filter((e) => e.price > min && e.price < max);
-    setStock(filtred);
-  };
-
-  const filterByColor: any = (our_color) => {
-    const filtred = stock.filter((e) => e.color === our_color);
-    setStock(filtred);
-  }; 
+  // const filterByColor: any = (our_color) => {
+  //   const filtred = stock.filter((e) => e.color === our_color);
+  //   setStock(filtred);
+  // }; 
 
 
 
@@ -142,7 +163,7 @@ export default function allProduct({ data }) {
                       className="custom-control-input"
                       id="price-all"
                       onClick={() => {
-                        alldata();
+                        GetFiltredDatabyPrice(0, 500);
                       }}
                     />
                     <label className="custom-control-label" htmlFor="price-all">
@@ -151,11 +172,11 @@ export default function allProduct({ data }) {
                   </div>
                   <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input
-                      type="  "
+                      type="checkbox"
                       className="custom-control-input"
                       id="price-1"
                       onClick={() => {
-                        filterByPrice(0, 100);
+                        GetFiltredDatabyPrice(0, 100);
                       }}
                       required
                     />
@@ -166,7 +187,7 @@ export default function allProduct({ data }) {
                   <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input
                       onClick={() => {
-                        filterByPrice(100, 200);
+                        GetFiltredDatabyPrice(100, 200);
                       }}
                       type="checkbox"
                       className="custom-control-input"
@@ -179,7 +200,7 @@ export default function allProduct({ data }) {
                   <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input
                       onClick={() => {
-                        filterByPrice(200, 300);
+                        GetFiltredDatabyPrice(200, 300);
                       }}
                       type="checkbox"
                       className="custom-control-input"
@@ -192,7 +213,7 @@ export default function allProduct({ data }) {
                   <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input
                       onClick={() => {
-                        filterByPrice(300, 400);
+                        GetFiltredDatabyPrice(300, 400);
                       }}
                       type="checkbox"
                       className="custom-control-input"
@@ -208,7 +229,7 @@ export default function allProduct({ data }) {
                       className="custom-control-input"
                       id="price-5"
                       onClick={() => {
-                        filterByPrice(400, 500);
+                        GetFiltredDatabyPrice(400, 500);
                       }}
                     />
                     <label className="custom-control-label" htmlFor="price-5">
@@ -225,7 +246,7 @@ export default function allProduct({ data }) {
                   <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input
                       onClick={() => {
-                        alldata();
+                        GetFiltredDatabyPrice(0, 500);
                       }}
                       type="checkbox"
                       className="custom-control-input"
@@ -241,7 +262,7 @@ export default function allProduct({ data }) {
                       className="custom-control-input"
                       id="color-1"
                       onClick={() => {
-                        filterByColor("Black");
+                        GetFiltredDatabyColor("Black");
                       }}
                     />
                     <label className="custom-control-label" htmlFor="color-1">
@@ -251,7 +272,7 @@ export default function allProduct({ data }) {
                   <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input
                       onClick={() => {
-                        filterByColor("White");
+                        GetFiltredDatabyColor("White");
                       }}
                       type="checkbox"
                       className="custom-control-input"
@@ -265,7 +286,7 @@ export default function allProduct({ data }) {
                   <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input
                       onClick={() => {
-                        filterByColor("Blue");
+                        GetFiltredDatabyColor("Blue");
                       }}
                       type="checkbox"
                       className="custom-control-input"
@@ -278,7 +299,7 @@ export default function allProduct({ data }) {
                   <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                     <input
                       onClick={() => {
-                        filterByColor("Green");
+                        GetFiltredDatabyColor("Green");
                       }}
                       type="checkbox"
                       className="custom-control-input"

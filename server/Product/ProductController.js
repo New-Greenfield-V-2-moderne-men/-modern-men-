@@ -1,4 +1,3 @@
-
 var product = require("./ProductSchema");
 // Get all products
 const getAll = async (req, res) => {
@@ -80,7 +79,7 @@ const getOne = async (req, res) => {
     res.status(200).send(giveOne);
     return;
   } catch (err) {
-    res.send("this user is not avaible");
+    res.send(err);
   }
 };
 
@@ -97,6 +96,16 @@ const FilterProductbyPrice = async (req, res) => {
   }
 };
 
+const FilterProductbyColor = async (req, res) => {
+  try {
+    const color = req.body.color;
+    const pro = await product.find({ color: color });
+    res.status(200).send(pro);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 module.exports = {
   deleteOne,
   updateOne,
@@ -105,4 +114,5 @@ module.exports = {
   getOne,
   findOne,
   FilterProductbyPrice,
+  FilterProductbyColor,
 };

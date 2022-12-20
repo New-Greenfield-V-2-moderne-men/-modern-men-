@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React ,{useState}from "react";
+import React, { useState } from "react";
 import {
   faFacebookF,
   faLinkedin,
@@ -12,16 +12,18 @@ import {
   faMagnifyingGlass,
   faHeart,
   faShoppingCart,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router"; 
 import Link from "next/link";
 
 
+
 export default function Navbar() {
   const router = useRouter();
-  const [name,setName] = useState('') 
+  const [name, setName] = useState("");
   console.log(name);
-  
+
   return (
     <div>
       {/* Topbar Start */}
@@ -77,8 +79,10 @@ export default function Navbar() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Search for products" 
-                  onChange={(e)=>{setName(e.target.value)}}
+                  placeholder="Search for products"
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
                 />
                 <div className="input-group-append">
                   <span className="input-group-text bg-transparent text-primary">
@@ -98,7 +102,14 @@ export default function Navbar() {
             <Link href="/user_interface/cart" className="btn border">
               <FontAwesomeIcon icon={faShoppingCart} />
               <span className="badge">0</span>
+              </Link>
+           
+
+            <Link href="./Profile" className="btn border">
+              <FontAwesomeIcon icon={faUser} />
+              <span> Profile</span>
             </Link>
+            
           </div>
         </div>
       </div>

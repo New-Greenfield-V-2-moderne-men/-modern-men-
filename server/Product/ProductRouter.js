@@ -10,6 +10,7 @@ const {
   updateOne,
   findOne,
   FilterProductbyPrice,
+  FilterProductbyColor,
 } = require("./ProductController");
 
 router.get("/getall", getAll);
@@ -20,6 +21,7 @@ router.delete("/:id", deleteOne);
 router.put("/:id", updateOne);
 router.post("/add", createOne);
 
-router.get("/price", FilterProductbyPrice);
+router.post("/price", FilterProductbyPrice);
+router.post("/color", FilterProductbyColor);
 
 module.exports = router;

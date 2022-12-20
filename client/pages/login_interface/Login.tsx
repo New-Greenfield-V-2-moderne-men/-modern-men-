@@ -9,38 +9,38 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
-
 export default function Login() {
   const router = useRouter();
-  
-  const[email,setEmail]=useState("")
-  const[password,setPassword]=useState("")
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   let [errormessage, setErrormessage] = useState("");
   let [error, setError] = useState(false);
   // console.log("fegeg");
-  const handleLogin= async ()=>{
-  try{
-      const loginReq= await axios.post('http://localhost:4000/users/login',{
-        email:email,
-        password:password
-      })
-      .then((response)=>{
-        const encodedToken =response.data.token.toString().split(".")[1];
-        const decodedToken= atob(encodedToken )
-        const payload=JSON.parse(decodedToken);
-        localStorage.setItem("IS_ADMIN", payload.isAdmin);
-        localStorage.setItem("USER_ID", payload.id);
-        localStorage.setItem("USER_NAME", payload.name);
-      })
-      .then(()=>{
-        displayComponent();
-      });
-    }catch(error){
+  const handleLogin = async () => {
+    try {
+      const loginReq = await axios
+        .post("http://localhost:4000/users/login", {
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          const encodedToken = response.data.token.toString().split(".")[1];
+          const decodedToken = atob(encodedToken);
+          const payload = JSON.parse(decodedToken);
+          localStorage.setItem("IS_ADMIN", payload.isAdmin);
+          localStorage.setItem("USER_ID", payload.id);
+          localStorage.setItem("USER_NAME", payload.name);
+        })
+        .then(() => {
+          displayComponent();
+        });
+    } catch (error) {
       console.log(error.response.data.message);
       setErrormessage(error.response.data.message);
       setError(true);
     }
-  }
+  };
 
   const displayComponent = () => {
     let GetRole = localStorage.getItem("IS_ADMIN");
@@ -58,7 +58,7 @@ export default function Login() {
       <>
         <section className="sign-in">
           <div className="container">
-            <div className="signin-content">
+            <div className="signinz-content">
               <div className="signin-image">
                 <figure>
                   <img
@@ -87,7 +87,9 @@ export default function Login() {
                       name="your_email"
                       id="your_name"
                       placeholder="Your_email"
-                      onChange={(e)=>{setEmail(e.target.value)}}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="form-group">
@@ -99,7 +101,9 @@ export default function Login() {
                       name="your_pass"
                       id="your_pass"
                       placeholder="Password"
-                      onChange={(e)=>{setPassword(e.target.value)}}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="form-group">

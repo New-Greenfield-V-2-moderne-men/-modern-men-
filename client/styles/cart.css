@@ -1,0 +1,255 @@
+.cardimg{
+
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 50px;
+  float: right;
+  position: relative;
+  right: 300px;
+}
+
+
+.title {
+
+margin-bottom: 50px;
+text-transform: uppercase;
+}
+
+.card-block {
+font-size: 1em;
+position: relative;
+margin: 0;
+padding: 1em;
+border: none;
+border-top: 1px solid rgba(34, 36, 38, .1);
+box-shadow: none;
+
+}
+
+.card {
+font-size: 1em;
+overflow: hidden;
+padding: 5;
+border: none;
+border-radius: .28571429rem;
+box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+margin-top: 20px;
+}
+
+.carousel-indicators li {
+border-radius: 12px;
+width: 12px;
+height: 12px;
+background-color: #404040;
+}
+
+.carousel-indicators li {
+border-radius: 12px;
+width: 12px;
+height: 12px;
+background-color: #404040;
+}
+
+.carousel-indicators .active {
+background-color: white;
+max-width: 12px;
+margin: 0 3px;
+height: 12px;
+}
+
+.carousel-control-prev-icon {
+background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon {
+background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+
+
+
+.btn {
+margin-top: auto;
+}
+
+#img{
+width: 350px;
+position: relative;
+float: left;
+left: 80px;
+top:50px;
+}
+
+
+.button-buy {
+width: 50%;
+
+position: relative;
+left: 190px;
+font-weight: bold;
+font-size: 17px;
+padding-top: 15px;
+margin-top: 15px;
+padding-bottom: 15px;
+border: none;
+background: #D19C97;
+color: white;
+
+transition: 0.4s;
+border-radius: 10px;
+cursor: pointer;
+} 
+/* 
+.d-block {   
+
+width :20px ;
+height : 500px ;
+right: 100px;
+
+
+}  */
+.container.py-3 { 
+width: 100%;
+} 
+
+
+
+.clearAll {
+  background: #D19C97;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: bold;
+  
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 20px 20px;
+    border-radius: 6px;
+    display: inline-block;
+    line-height: 0;
+    cursor: pointer;
+    margin-bottom: 0;
+    margin: 10px;
+    cursor: pointer;
+    transition: color 0.4s linear;
+    position: relative;
+    z-index: 1;
+    -moz-user-select: none;
+    border: 0;
+    overflow: hidden;
+    margin: 0;
+    position: relative;
+    left: 900px;
+    top:30px
+}
+
+.clearAll:active,
+.clearAll:hover,
+.clearAll:focus {
+  outline: 0;
+}
+
+
+.clearAll:active {
+  background-color: #D33A2C;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px 0 inset;
+  color: #FFFFFF;
+}
+
+.clearAll:hover {
+  background-color: #FFE3E3;
+  border-color: #FAA4A4;
+}
+
+.clearAll:active:hover,
+.clearAll:focus:hover,
+.clearAll:focus {
+  background-color: #D33A2C;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px 0 inset;
+  color: #FFFFFF;
+}  
+
+
+
+
+
+/* CSS */
+.clear { 
+background: #D19C97;
+  font-family: "Josefin Sans",sans-serif;
+  font-size: bold;
+ 
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 20px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  line-height: 0;
+  cursor: pointer;
+  margin-bottom: 0;
+  margin: 10px;
+  cursor: pointer;
+  transition: color 0.4s linear;
+  position: relative;
+  z-index: 1;
+  -moz-user-select: none;
+  border: 0;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* background: #b2b1b1;
+font-family: "Josefin Sans",
+sans-serif;
+text-transform: uppercase;
+color: #fff;
+font-size: 16px;
+font-weight: 600;
+letter-spacing: 0.03em;
+padding: 30px 28px;
+border-radius: 0px;
+display: inline-block;
+line-height: 0;
+cursor: pointer;
+margin-bottom: 0;
+margin: 10px;
+cursor: pointer;
+transition: color 0.4s linear;
+position: relative;
+z-index: 1;
+-moz-user-select: none;
+border: 0;
+overflow: hidden;
+margin: 0;
+} */
+
+
+
+
+
+
+.clear:active,
+.clear:hover,
+.clear:focus {
+  outline: 0;
+}
+
+
+.clear:active {
+  background-color: #D33A2C;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px 0 inset;
+  color: #FFFFFF;
+}
+
+.clear:hover {
+  background-color: #FFE3E3;
+  border-color: #FAA4A4;
+}
+
+.clear:active:hover,
+.clear:focus:hover,
+.clear:focus {
+  background-color: #D33A2C;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px 0 inset;
+  color: #FFFFFF;
+}

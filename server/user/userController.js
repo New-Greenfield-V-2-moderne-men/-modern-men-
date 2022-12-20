@@ -114,22 +114,90 @@ const addCart = async (req, res) => {
       res.status(500).send(err);
     }
  
-};  
- const getOneUser = async  (req, res)=>{
+};   
 
-  try{
-   
-      const profil = await users.findOne({_id:req.params.id})
-  res.status(200).json(profil).send();
-  return;
-  }catch(err){
+const addFavorite = async (req, res) => {
+  console.log("add");
+   try {   
+     await users.updateOne( 
+       { _id : req.params.id}, 
+       { $push: { favorite : req.body  } } ) 
+      
+       res.status(200).send("posted to favorite ");
+     } catch (err) {
+       res.status(500).send(err);
+     }
   
-  console.log(err);
+ }; 
+
+
+
+const deleteCart =async (req, res) => {
+  
+   try {   
+     await users.updateOne( 
+       { _id : req.params.id}, 
+       { $pull: { 'cart': { _id  : req.body.id } } } ) 
+      
+       res.status(200).send("product deleted frolm cart  ");
+     } catch (err) {
+       res.status(500).send(err);
+     }
+  
+ };    
+
+
+ const deleteFavorite =async (req, res) => {
+ 
+   try {   
+     await users.updateOne( 
+       { _id : req.params.id}, 
+       { $pull: { 'favorite': { _id  : req.body.id } } } ) 
+      
+       res.status(200).send("product deleted from favorite  ");
+     } catch (err) {
+       res.status(500).send(err);
+     }
+  
+ };   
+  const getOneUser = async  (req, res)=>{
+  try{
+    const profil = await users.findOne({_id:req.params.id})
+    res.status(200).json(profil).send();
+    return;
+    }catch(err){
+    
+    console.log(err);
+    }
   }
+ const getOne = async(req,res)=>{   
+  try {   
+    const oneUser = await users.findOne({_id : req.params.id}) 
+    
+    res.status(200).send(oneUser)
+
+  }catch(err){ 
+    res.status(500).send(err) 
+   
   }
 
+ }
+ 
+ const deleteAll =async (req, res) => {
+  console.log("add");
+   try {   
+     await users.updateOne( 
+       { _id : req.params.id}, 
+       { $set: { 'cart': []} } , {multi:true}) 
+      
+       res.status(200).send("all deleted  ");
+     } catch (err) {
+       res.status(500).send(err);
+     }
+  
+ };  
 
 
 
 
-module.exports = { register, login, getAll , addCart, getOneUser};
+module.exports = { register, login, getAll , addCart, deleteCart,getOne,deleteAll ,addFavorite,deleteFavorite,getOneUser};

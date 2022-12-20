@@ -48,7 +48,7 @@ export default function Login() {
 
     console.log("test", Parsed_Get_Role);
     if (Parsed_Get_Role === true) {
-      return router.push("/AdminUserLayout");
+      return router.push("/admin_interface/allProduct");
     } else if (Parsed_Get_Role === false) {
       return router.push("/user_interface/home");
     }

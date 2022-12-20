@@ -1,8 +1,8 @@
 //@ts-nocheck
 import React, { useState, useEffect } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "../user_interface/Navbar";
+import Footer from "../user_interface/Footer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -11,9 +11,11 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import Router from "next/router";
 import Link from "next/link";
-
+import { setDefaultResultOrder } from "dns";
 import axios from "axios";
+
 
 export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch("http://localhost:4000/product/getall");
@@ -23,41 +25,52 @@ export const getStaticProps: GetStaticProps = async () => {
       data,
     },
   };
-};
+}; 
+
 
 export default function allProduct({ data }) {
+  // const [allProducts, setAllProducts] = useState(data);
   const router = useRouter();
 
   const [stock, setStock] = useState([]);
-  const [searched, setSearched] = useState("");
+  const [searched, setSearched] = useState(""); 
 
-  const [user, setUser] = useState("");
-  console.log(("user", user));
+  const [user,setUser] =useState("") 
+  console.log(("user",user));
+  
+  
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setUser(localStorage.getItem("USER_ID"));
-    }
-  }, []);
+  
+  useEffect(()=>{
+    if (typeof window !== 'undefined') {
+      
+      setUser(localStorage.getItem('USER_ID') ) 
+    }  
+  },[])
+  
 
-  // add to the user cart the products that he picked
-  const addToCart = (e) => {
-    axios
-      .put(`http://localhost:4000/users/addCart/${user}`, e)
-      .then((res) => console.log("added to cart "))
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+//   // add to the user cart the products that he picked 
+//   const addToCart=(e)=>{ 
+//     axios.put(`http://localhost:4000/users/addCart/${user}`,e) 
+//     .then(res => console.log("added to cart ")) 
+//     .catch(err =>{ console.log(err)
+//     })
+//   }  
 
-  const addToFavorite = (e) => {
-    axios
-      .put(`http://localhost:4000/users/addFavorite/${user}`, e)
-      .then((res) => console.log("added to cart "))
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+//   const addToFavorite=(e)=>{ 
+//     axios.put(`http://localhost:4000/users/addFavorite/${user}`,e) 
+//     .then(res => console.log("added to cart ")) 
+//     .catch(err =>{ console.log(err)
+//     })
+//   } 
+
+
+
+  
+
+  
+
+
 
   // filtre function
   let GetFiltredDatabyPrice = (min, max) => {
@@ -86,6 +99,7 @@ export default function allProduct({ data }) {
     setStock(data);
   }, [searched !== ""]);
 
+  
   const handleSearch = () => {
     if (searched === "") {
       setStock(data);
@@ -100,6 +114,19 @@ export default function allProduct({ data }) {
   };
 
   console.log("testdata", stock);
+
+  // const filterByPrice: any = (min: any, max: any) => {
+  //   const filtred = stock.filter((e) => e.price > min && e.price < max);
+  //   setStock(filtred);
+  // };
+
+  // const filterByColor: any = (our_color) => {
+  //   const filtred = stock.filter((e) => e.color === our_color);
+  //   setStock(filtred);
+  // }; 
+
+
+
 
   return (
     <div>
@@ -409,30 +436,20 @@ export default function allProduct({ data }) {
                         </div>
                         <div className="card-footer d-flex justify-content-between bg-light border">
                           <Link
-                            href={"/user_interface/ProductDetails/id"}
-                            as={`/user_interface/ProductDetails/${e._id}`}
+                            href={"/admin_interface/edit/id"}
+                            as={`/admin_interface/edit/${e._id}`}
                             className="btn btn-sm text-dark p-0"
                           >
-                            <FontAwesomeIcon icon={faEye} />
-                            View Detail
-                          </Link>
-                          <a
-                            className="btn border"
-                            onClick={() => {
-                              addToFavorite(e);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faHeart} />
-                            <span className="badge">0</span>
+                           
+                            EDIT
+                          </Link> 
+                          <a className="btn border" onClick={()=>{addToFavorite(e)}}>
+                          <FontAwesomeIcon icon={faHeart}  />
+                           <span className="badge">0</span>
                           </a>
-                          <a
-                            className="btn btn-sm text-dark p-0"
-                            onClick={() => {
-                              addToCart(e);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faShoppingCart} />
-                            Add To Cart
+                          <a  className="btn btn-sm text-dark p-0" onClick={()=>{ addToCart(e)}} >
+                            {/* <FontAwesomeIcon icon={faShoppingCart} /> */}
+                           DELETE
                           </a>
                         </div>
                       </div>

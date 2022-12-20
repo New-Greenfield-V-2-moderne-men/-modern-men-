@@ -62,11 +62,11 @@ const findOne = async (req, res) => {
 };
 
 const deleteOne = async (req, res) => {
-  const id = req.params.id;
+  // const id = req.params.id;
   // console.log(req.params);
   try {
-    const deleted = await product.findByIdAndDelete(id);
-    res.status(204).send(deleted);
+    const deleted = await product.findByIdAndDelete({_id : req.params.id});
+    res.status(200).send("deleted");
     return;
   } catch (err) {
     res.status(500).send(err);

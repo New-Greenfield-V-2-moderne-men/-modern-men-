@@ -46,7 +46,19 @@ export default function allProduct({ data }) {
       
       setUser(localStorage.getItem('USER_ID') ) 
     }  
-  },[])
+  },[])   
+
+  const del=(id)=>{  
+    console.log("oui");
+     
+    console.log("oui");
+    axios.delete(`http://localhost:4000/product/${id}`) 
+    
+    .then(res=> console.log(" product deleted")
+    ) 
+    .catch(err => console.log(err)) 
+    window.location.reload(false)
+  }
   
 
 //   // add to the user cart the products that he picked 
@@ -443,11 +455,11 @@ export default function allProduct({ data }) {
                            
                             EDIT
                           </Link> 
-                          <a className="btn border" onClick={()=>{addToFavorite(e)}}>
+                          {/* <a className="btn border" onClick={()=>{addToFavorite(e)}}>
                           <FontAwesomeIcon icon={faHeart}  />
                            <span className="badge">0</span>
-                          </a>
-                          <a  className="btn btn-sm text-dark p-0" onClick={()=>{ addToCart(e)}} >
+                          </a> */}
+                          <a  className="btn btn-sm text-dark p-0" onClick={()=>{ del(e._id)}} >
                             {/* <FontAwesomeIcon icon={faShoppingCart} /> */}
                            DELETE
                           </a>

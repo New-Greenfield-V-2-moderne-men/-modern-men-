@@ -32,6 +32,7 @@ async function login(req, res) {
         isAdmin: user["isAdmin"],
         name: user.name,
         email: user.email,
+        password:user.pwd
       },
       "SECRET"
     );
@@ -114,9 +115,21 @@ const addCart = async (req, res) => {
     }
  
 };  
+ const getOneUser = async  (req, res)=>{
+
+  try{
+   
+      const profil = await users.findOne({_id:req.params.id})
+  res.status(200).json(profil).send();
+  return;
+  }catch(err){
+  
+  console.log(err);
+  }
+  }
 
 
 
 
 
-module.exports = { register, login, getAll , addCart };
+module.exports = { register, login, getAll , addCart, getOneUser};

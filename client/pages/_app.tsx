@@ -5,6 +5,7 @@ import "../styles/style.css";
 import "../styles/style.min.css";
 import "../styles/about.css";
 import "../styles/login.css";
+import "../styles/profil.css";
 export default function App({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
 }

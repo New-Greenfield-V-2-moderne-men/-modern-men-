@@ -14,7 +14,7 @@ const {
 } = require("./ProductController");
 
 router.get("/getall", getAll);
-router.get("/find", findOne);
+router.get("/find/:category", findOne);
 router.get("/:id", getOne);
 
 router.delete("/:id", deleteOne);

@@ -22,7 +22,7 @@ import Link from "next/link";
 export default function Navbar() {
   const router = useRouter();
   const [name, setName] = useState("");
-  console.log(name);
+  // console.log(name);
 
   return (
     <div>
@@ -180,6 +180,8 @@ export default function Navbar() {
                 <a
                   onClick={() => {
                     router.push("../login_interface/Login");
+                    // localStorage.removeItem("USER_ID") 
+                    localStorage.clear()
                   }}
                   className="nav-item nav-link"
                 >

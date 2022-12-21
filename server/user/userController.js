@@ -52,7 +52,7 @@ async function login(req, res) {
 }
 
 const register = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   
   try {
     const {
@@ -163,6 +163,7 @@ const deleteCart =async (req, res) => {
   const getOneUser = async  (req, res)=>{
   try{
     const profil = await users.findOne({_id:req.params.id})
+  
     res.status(200).json(profil).send();
     return;
     }catch(err){
@@ -196,8 +197,24 @@ const deleteCart =async (req, res) => {
      }
   
  };  
+ 
+ // update profil of user
+ updateProfil= async(req,res)=>{
+  
+//  const User = await users.findById({_id:req.params.id});
+// console.log(req.params.id);
+try {   
+
+const updated = await users.updateOne( 
+    { _id : req.params.id}, 
+    { $push: { phone : req.body.phone  , bio:req.body.bio} } ) 
+//  const profil 
+  console.log(req.body);
+    res.status(200).send(updated);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
 
 
-
-
-module.exports = { register, login, getAll , addCart, deleteCart,getOne,deleteAll ,addFavorite,deleteFavorite,getOneUser};
+module.exports = { register, login, getAll , addCart, deleteCart,getOne,deleteAll ,addFavorite,deleteFavorite,getOneUser,updateProfil};

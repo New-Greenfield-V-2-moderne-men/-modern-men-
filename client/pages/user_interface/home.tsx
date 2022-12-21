@@ -11,6 +11,7 @@ import {
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Link from "next/link";
+import axios from "axios";
 
 export default function home() {
   const images = [
@@ -42,6 +43,28 @@ export default function home() {
     setCurrentIndex(currentIndex + 1);
   };
 
+  // function to get the length of each category
+  const [tshirtDataLength, setTshirtDataLength] = useState(0);
+  const [jeansDataLength, setJeanstDataLength] = useState(0);
+  const [shoesDataLength, setShoestDataLength] = useState(0);
+
+  let GetFiltredDatabyCategory = async (category) => {
+    await axios
+      .get(`http://localhost:4000/product/find/${category}`)
+      .then((result) => {
+        if (category === "T-Shirt") setTshirtDataLength(result.data.length);
+        if (category === "Jeans") setJeanstDataLength(result.data.length);
+        if (category === "Shoes") setShoestDataLength(result.data.length);
+      });
+  };
+
+  // invokation to get the length
+  GetFiltredDatabyCategory("T-shirt");
+  GetFiltredDatabyCategory("Jeans");
+  GetFiltredDatabyCategory("Shoes");
+  console.log("this for thsirt", tshirtDataLength);
+  console.log("this for jeans", jeansDataLength);
+  console.log("this for Shoes", shoesDataLength);
   return (
     <div>
       <>
@@ -197,7 +220,7 @@ export default function home() {
                 className="cat-item d-flex flex-column border mb-4"
                 style={{ padding: 40 }}
               >
-                <p className="text-right">length : 15 Products</p>
+                <p className="text-right">{tshirtDataLength} Products</p>
                 <a
                   href=""
                   className="cat-img position-relative overflow-hidden mb-3"
@@ -210,7 +233,7 @@ export default function home() {
                 </a>
                 <Link
                   href={{
-                    pathname: "./category/T-Shirt",
+                    pathname: "./category/T-shirt",
                   }}
                 >
                   <h5 className="font-weight-semi-bold m-0">T-shirt</h5>
@@ -223,14 +246,15 @@ export default function home() {
                 className="cat-item d-flex flex-column border mb-4"
                 style={{ padding: 30 }}
               >
-                <p className="text-right">15 Products</p>
+                <p className="text-right">{jeansDataLength} Products</p>
                 <a
                   href=""
                   className="cat-img position-relative overflow-hidden mb-3"
                 >
                   <img
                     className="img-fluid"
-                    src="https://static.zara.net/photos///2022/I/0/2/p/8727/335/406/2/w/750/8727335406_6_1_1.jpg?ts=1664793001022"
+                    src="https://johnlewis.scene7.com/is/image/JohnLewis/005124175?"
+                    // src="https://static-01.daraz.pk/p/9ff0f861bd134ca2620e97280fd4ad93.jpg"
                     alt=""
                   />
                 </a>
@@ -248,7 +272,7 @@ export default function home() {
                 className="cat-item d-flex flex-column border mb-4"
                 style={{ padding: 30 }}
               >
-                <p className="text-right">15 Products</p>
+                <p className="text-right">{shoesDataLength} Products</p>
                 <a
                   href=""
                   className="cat-img position-relative overflow-hidden mb-3"

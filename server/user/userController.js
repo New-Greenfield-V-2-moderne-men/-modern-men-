@@ -32,7 +32,7 @@ async function login(req, res) {
         isAdmin: user["isAdmin"],
         name: user.name,
         email: user.email,
-        password:user.pwd
+        password: user.pwd,
       },
       "SECRET"
     );
@@ -56,7 +56,7 @@ const register = async (req, res) => {
   
   try {
     const {
-      body: { name, email, password},
+      body: { name, email, password },
     } = req;
 
     if (!name && !email && !password) {
@@ -99,53 +99,60 @@ const getAll = async (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
-};   
-
+};
 
 const addCart = async (req, res) => {
- console.log("add");
-  try {   
-    await users.updateOne( 
-      { _id : req.params.id}, 
-      { $push: { cart : req.body  } } ) 
-     
-      res.status(200).send("posted to cart ");
-    } catch (err) {
-      res.status(500).send(err);
-    }
- 
-};   
+  console.log("add");
+  try {
+    await users.updateOne(
+      { _id: req.params.id },
+      { $push: { cart: req.body } }
+    );
+
+    res.status(200).send("posted to cart ");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+// const getallCard = async (req, res) => {
+//   try {
+//     //  users.findOne({ cart });
+//     // await users.find({ cart });
+//     // await users.find({ cart: {} });
+//     const allusers = await users.cart.find({});
+//     res.status(200).send(allusers);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// };
 
 const addFavorite = async (req, res) => {
   console.log("add");
-   try {   
-     await users.updateOne( 
-       { _id : req.params.id}, 
-       { $push: { favorite : req.body  } } ) 
-      
-       res.status(200).send("posted to favorite ");
-     } catch (err) {
-       res.status(500).send(err);
-     }
-  
- }; 
+  try {
+    await users.updateOne(
+      { _id: req.params.id },
+      { $push: { favorite: req.body } }
+    );
 
+    res.status(200).send("posted to favorite ");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 
+const deleteCart = async (req, res) => {
+  try {
+    await users.updateOne(
+      { _id: req.params.id },
+      { $pull: { cart: { _id: req.body.id } } }
+    );
 
-const deleteCart =async (req, res) => {
-  
-   try {   
-     await users.updateOne( 
-       { _id : req.params.id}, 
-       { $pull: { 'cart': { _id  : req.body.id } } } ) 
-      
-       res.status(200).send("product deleted frolm cart  ");
-     } catch (err) {
-       res.status(500).send(err);
-     }
-  
- };    
-
+    res.status(200).send("product deleted frolm cart  ");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 
  const deleteFavorite =async (req, res) => {
  
@@ -166,25 +173,21 @@ const deleteCart =async (req, res) => {
   
     res.status(200).json(profil).send();
     return;
-    }catch(err){
-    
+  } catch (err) {
     console.log(err);
-    }
   }
- const getOne = async(req,res)=>{   
-  try {   
-    const oneUser = await users.findOne({_id : req.params.id}) 
-    
-    res.status(200).send(oneUser)
+};
+const getOne = async (req, res) => {
+  try {
+    const oneUser = await users.findOne({ _id: req.params.id });
 
-  }catch(err){ 
-    res.status(500).send(err) 
-   
+    res.status(200).send(oneUser);
+  } catch (err) {
+    res.status(500).send(err);
   }
+};
 
- }
- 
- const deleteAll =async (req, res) => {
+const deleteAll = async (req, res) => {
   console.log("add");
    try {   
      await users.updateOne( 
@@ -201,8 +204,7 @@ const deleteCart =async (req, res) => {
  // update profil of user
  updateProfil= async(req,res)=>{
   
-//  const User = await users.findById({_id:req.params.id});
-// console.log(req.params.id);
+
 try {   
 
 const updated = await users.updateOne( 
@@ -217,4 +219,5 @@ const updated = await users.updateOne(
 }
 
 
-module.exports = { register, login, getAll , addCart, deleteCart,getOne,deleteAll ,addFavorite,deleteFavorite,getOneUser,updateProfil};
+
+module.exports = { register, login, getAll , addCart, deleteCart,getOne,deleteAll ,addFavorite,deleteFavorite,getOneUser,updateProfil}

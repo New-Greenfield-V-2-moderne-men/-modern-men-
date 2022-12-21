@@ -13,11 +13,10 @@ import {
   faHeart,
   faShoppingCart,
   faUser,
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/router"; 
+import { useRouter } from "next/router";
 import Link from "next/link";
-
-
 
 export default function Navbar() {
   const router = useRouter();
@@ -94,7 +93,7 @@ export default function Navbar() {
           </div>
           <div className="col-lg-3 col-6 text-right">
             <Link href="/user_interface/favorite" className="btn border">
-              {/* <i className="fas fa-heart text-primary" /> */} 
+              {/* <i className="fas fa-heart text-primary" /> */}
 
               <FontAwesomeIcon icon={faHeart} />
               <span className="badge">0</span>
@@ -102,14 +101,12 @@ export default function Navbar() {
             <Link href="/user_interface/cart" className="btn border">
               <FontAwesomeIcon icon={faShoppingCart} />
               <span className="badge">0</span>
-              </Link>
-           
+            </Link>
 
             <Link href="./Profile" className="btn border">
               <FontAwesomeIcon icon={faUser} />
               <span> Profile</span>
             </Link>
-            
           </div>
         </div>
       </div>
@@ -185,7 +182,8 @@ export default function Navbar() {
                   }}
                   className="nav-item nav-link"
                 >
-                  Logout
+                  Logout -
+                  <FontAwesomeIcon icon={faSignOutAlt} />
                 </a>
               </div>
             </div>

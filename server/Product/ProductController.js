@@ -1,4 +1,4 @@
-var product = require("./ProductSchema");
+var product = require("./ProductSchema.js");
 // Get all products
 const getAll = async (req, res) => {
   try {
@@ -54,7 +54,7 @@ const updateOne = async (req, res) => {
 
 const findOne = async (req, res) => {
   try {
-    const find = await product.findOne({ category: req.params.category });
+    const find = await product.find({ category: req.params.category });
     res.send(find);
   } catch (err) {
     console.log(err);
@@ -106,6 +106,16 @@ const FilterProductbyColor = async (req, res) => {
   }
 };
 
+const FilterProductbySize = async (req, res) => {
+  try {
+    const size = req.body.size;
+    const pro = await product.find({ size: size });
+    res.status(200).send(pro);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 module.exports = {
   deleteOne,
   updateOne,
@@ -115,4 +125,5 @@ module.exports = {
   findOne,
   FilterProductbyPrice,
   FilterProductbyColor,
+  FilterProductbySize,
 };

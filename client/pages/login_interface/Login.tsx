@@ -64,6 +64,7 @@ export default function Login() {
                   <img
                     src="https://pmb.unespadang.ac.id/assets/ilustration-login.23ef2507.svg"
                     alt="sing up image"
+                    className="imge"
                   />
                 </figure>
                 <a
@@ -106,15 +107,12 @@ export default function Login() {
                       }}
                     />
                   </div>
-                  <div className="form-group">
-              
-                  </div>
+                  <div className="form-group"></div>
                   <div className="form-group form-button"></div>
                 </form>
                 <button
                   onClick={() => {
                     handleLogin();
-                   
                   }}
                   id="signin"
                   className="form-submit"
@@ -122,8 +120,10 @@ export default function Login() {
                   Log In
                 </button>{" "}
                 <div>
-                {error ? <p style={{ color: "red" }}>{errormessage}</p> : null}{" "}
-              </div>
+                  {error ? (
+                    <p style={{ color: "red" }}>{errormessage}</p>
+                  ) : null}{" "}
+                </div>
                 <div className="social-login">
                   <span className="social-label">Or login with</span>
                   <ul className="socials">

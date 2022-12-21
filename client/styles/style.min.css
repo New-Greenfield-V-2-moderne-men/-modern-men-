@@ -10767,3 +10767,14 @@ a.text-dark:focus {
     }
 
 
+.response{
+color: black;
+background-color: #D19C97 ;
+
+height: 50px;
+width: 1240px;
+align-items: center;
+text-align: center;
+padding: 14px;
+margin-top:20px ;
+}

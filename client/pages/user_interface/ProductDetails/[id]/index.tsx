@@ -20,17 +20,34 @@ export default function ProductDetail() {
   const router = useRouter();
   const [data, setData] = useState([]);
   const [amount, setAmount] = useState(1);
-
+  // function to get the data filtrd by category
   useEffect(() => {
     if (router.isReady) {
-      // Code using query)
-
       axios
         .get(`http://localhost:4000/product/${router.query.id}`)
         .then((res) => setData(res.data))
         .catch((err) => console.log(err));
     }
   }, [router.isReady]);
+
+  // function to get the id of user
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUser(localStorage.getItem("USER_ID"));
+    }
+  }, []);
+
+  const addToCart = (data) => {
+    axios
+      .put(`http://localhost:4000/users/addCart/${user}`, data)
+      .then((res) => {
+        console.log("added to cart ");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -78,9 +95,18 @@ export default function ProductDetail() {
               <h3 className="font-weight-semi-bold">{data.productName}</h3>
               <br />
               <br />
-              <h4> Description :</h4>
+
+              <h5> Description :</h5>
               <p>{data.description}</p>
-              <p className="mb-4">color : {data.color}</p>
+              <br />
+              <p className="mb-4">
+                {" "}
+                <h5> Category : </h5> {data.category}
+              </p>
+              <p className="mb-4">
+                <h5> Color : </h5> {data.color}
+              </p>
+
               <h4 className="font-weight-semi-bold mb-4">
                 {" "}
                 Price :{data.price} DT
@@ -115,7 +141,14 @@ export default function ProductDetail() {
                   </div>
                 </div>
                 <button className="btn btn-primary px-3">
-                  <FontAwesomeIcon icon={faShoppingCart} /> Add To Cart
+                  <FontAwesomeIcon icon={faShoppingCart} />{" "}
+                  <span
+                    onClick={() => {
+                      addToCart(data);
+                    }}
+                  >
+                    Add To Cart
+                  </span>
                 </button>
               </div>
               <h3>

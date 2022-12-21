@@ -23,16 +23,18 @@ export default function Category(props) {
     axios
       .get(`http://localhost:4000/product/find/${router.query.Category}`)
       .then((response) => {
-        console.log("testtt", [response.data]);
-        setMyData([response.data]);
+        console.log("testtt", response.data);
+        setMyData(response.data);
       });
     console.log(router.query.Category, "inside the useEffect");
   }, []);
   console.log("final", mydata);
+  console.log("length", mydata.length);
+
   return (
     <div>
       <>
-        {/* <Navbar />
+        <Navbar />
         {/* Page Header Start */}
         <div className="container-fluid bg-secondary mb-5">
           <div
@@ -351,7 +353,6 @@ export default function Category(props) {
                             }}
                           >
                             <FontAwesomeIcon icon={faHeart} />
-                            <span className="badge">0</span>
                           </a>
                           <a
                             className="btn btn-sm text-dark p-0"

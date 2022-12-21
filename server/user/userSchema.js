@@ -6,9 +6,9 @@ let userSchema = mongoose.Schema({
   username: { type: String },
   email: { type: String },
   pwd: { type: String },
-  isAdmin: { type: Boolean, default: false }, 
-  cart :[] ,
-  favorite : []
+  isAdmin: { type: Boolean, default: false },
+  cart: [],
+  favorite: [],
 });
 
 module.exports = mongoose.model("user", userSchema);

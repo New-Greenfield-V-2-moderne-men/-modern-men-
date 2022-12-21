@@ -238,7 +238,7 @@ export default function allProduct({ data }) {
                       onClick={() => {
                         GetFiltredDatabyPrice(0, 500);
                       }}
-                      type="radio"
+                      type="checkbox"
                       className="custom-control-input"
                       id="color-all"
                     />

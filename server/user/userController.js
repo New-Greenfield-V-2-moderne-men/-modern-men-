@@ -52,8 +52,8 @@ async function login(req, res) {
 }
 
 const register = async (req, res) => {
-  console.log(req.body);
-
+  // console.log(req.body);
+  
   try {
     const {
       body: { name, email, password },
@@ -154,21 +154,23 @@ const deleteCart = async (req, res) => {
   }
 };
 
-const deleteFavorite = async (req, res) => {
-  try {
-    await users.updateOne(
-      { _id: req.params.id },
-      { $pull: { favorite: { _id: req.body.id } } }
-    );
-
-    res.status(200).send("product deleted from favorite  ");
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
-const getOneUser = async (req, res) => {
-  try {
-    const profil = await users.findOne({ _id: req.params.id });
+ const deleteFavorite =async (req, res) => {
+ 
+   try {   
+     await users.updateOne( 
+       { _id : req.params.id}, 
+       { $pull: { 'favorite': { _id  : req.body.id } } } ) 
+      
+       res.status(200).send("product deleted from favorite  ");
+     } catch (err) {
+       res.status(500).send(err);
+     }
+  
+ };   
+  const getOneUser = async  (req, res)=>{
+  try{
+    const profil = await users.findOne({_id:req.params.id})
+  
     res.status(200).json(profil).send();
     return;
   } catch (err) {
@@ -187,29 +189,35 @@ const getOne = async (req, res) => {
 
 const deleteAll = async (req, res) => {
   console.log("add");
-  try {
-    await users.updateOne(
-      { _id: req.params.id },
-      { $set: { cart: [] } },
-      { multi: true }
-    );
+   try {   
+     await users.updateOne( 
+       { _id : req.params.id}, 
+       { $set: { 'cart': []} } , {multi:true}) 
+      
+       res.status(200).send("all deleted  ");
+     } catch (err) {
+       res.status(500).send(err);
+     }
+  
+ };  
+ 
+ // update profil of user
+ updateProfil= async(req,res)=>{
+  
 
-    res.status(200).send("all deleted  ");
+try {   
+
+const updated = await users.updateOne( 
+    { _id : req.params.id}, 
+    { $push: { phone : req.body.phone  , bio:req.body.bio} } ) 
+//  const profil 
+  console.log(req.body);
+    res.status(200).send(updated);
   } catch (err) {
     res.status(500).send(err);
   }
 }
 
-module.exports = {
-  register,
-  login,
-  getAll,
-  addCart,
-  deleteCart,
-  getOne,
-  deleteAll,
-  addFavorite,
-  deleteFavorite,
-  getOneUser,
-  // getallCard,
-};
+
+
+module.exports = { register, login, getAll , addCart, deleteCart,getOne,deleteAll ,addFavorite,deleteFavorite,getOneUser,updateProfil}

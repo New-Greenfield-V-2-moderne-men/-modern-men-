@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const post = require("./ProductSchema.js");
+// const post = require("./ProductSchema.js");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const {
@@ -11,6 +11,7 @@ const {
   findOne,
   FilterProductbyPrice,
   FilterProductbyColor,
+  FilterProductbySize,
 } = require("./ProductController");
 
 router.get("/getall", getAll);
@@ -23,5 +24,5 @@ router.post("/add", createOne);
 
 router.post("/price", FilterProductbyPrice);
 router.post("/color", FilterProductbyColor);
-
+router.post("/size", FilterProductbySize);
 module.exports = router;

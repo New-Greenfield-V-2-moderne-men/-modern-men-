@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, { useState, useEffect } from "react";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,9 +12,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
 import axios from "axios";
 
+// function to get all products
 export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch("http://localhost:4000/product/getall");
   const data = await response.json();
@@ -27,39 +27,43 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function allProduct({ data }) {
   const router = useRouter();
-
   const [stock, setStock] = useState([]);
-  const [searched, setSearched] = useState("");
 
+  // function to get the id of user
   const [user, setUser] = useState("");
-  console.log(("user", user));
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       setUser(localStorage.getItem("USER_ID"));
     }
   }, []);
 
-  // add to the user cart the products that he picked
+  // funvtion to add an element to the card
+  const [submitAddCard, setSubmitAddCard] = useState(false);
   const addToCart = (e) => {
     axios
       .put(`http://localhost:4000/users/addCart/${user}`, e)
-      .then((res) => console.log("added to cart "))
+      .then((res) => {
+        console.log("added to cart");
+      })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  // function to add element to the favorite
+  const [submitFavorite, setSubmitFavorite] = useState(false);
   const addToFavorite = (e) => {
     axios
       .put(`http://localhost:4000/users/addFavorite/${user}`, e)
-      .then((res) => console.log("added to cart "))
+      .then((res) => {
+        console.log("added to cart");
+      })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // filtre function
+  // function to filter data by price
   let GetFiltredDatabyPrice = (min, max) => {
     axios
       .post("http://localhost:4000/product/price", {
@@ -70,7 +74,7 @@ export default function allProduct({ data }) {
         setStock(result.data);
       });
   };
-
+  // function to get filtred data by color
   let GetFiltredDatabyColor = (our_color) => {
     axios
       .post("http://localhost:4000/product/color", {
@@ -80,8 +84,20 @@ export default function allProduct({ data }) {
         setStock(result.data);
       });
   };
+  // function to get filtred data by color
+  let GetFiltredDatabySize = (our_Size) => {
+    axios
+      .post("http://localhost:4000/product/size", {
+        size: our_Size,
+      })
+      .then((result) => {
+        setStock(result.data);
+      });
+  };
 
   // searched Functions
+  const [searched, setSearched] = useState("");
+
   useEffect(() => {
     setStock(data);
   }, [searched !== ""]);
@@ -106,6 +122,7 @@ export default function allProduct({ data }) {
       <>
         <Navbar />
         {/* Page Header Start */}
+
         <div className="container-fluid bg-secondary mb-5">
           <div
             className="d-flex flex-column align-items-center justify-content-center"
@@ -221,7 +238,7 @@ export default function allProduct({ data }) {
                       onClick={() => {
                         GetFiltredDatabyPrice(0, 500);
                       }}
-                      type="checkbox"
+                      type="radio"
                       className="custom-control-input"
                       id="color-all"
                     />
@@ -326,7 +343,13 @@ export default function allProduct({ data }) {
                       className="custom-control-input"
                       id="size-3"
                     />
-                    <label className="custom-control-label" htmlFor="size-3">
+                    <label
+                      onClick={() => {
+                        GetFiltredDatabySize("M");
+                      }}
+                      className="custom-control-label"
+                      htmlFor="size-3"
+                    >
                       M
                     </label>
                   </div>
@@ -385,63 +408,82 @@ export default function allProduct({ data }) {
                   </div>
                 </div>
 
-                <div className="gridcontainer">
-                  {stock.map((e) => {
-                    return (
-                      <div className="card product-item border-0 mb-4">
-                        <div className="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                          <img
-                            className="img-fluid w-100"
-                            src={e.imageUrl}
-                            alt=""
-                          />
-                        </div>
-                        <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                          <h6 className="text-truncate mb-3">
-                            {e.productName}
-                          </h6>
-                          <div className="d-flex justify-content-center">
-                            <h6> {e.price} dt</h6>
-                            <h6 className="text-muted ml-2">
-                              <del>{e.price + 20}</del>
+                <div className="col-12 pb-1">
+                  {/* div append to handle the response of add to favorite */}
+                  <div>
+                    {submitFavorite ? (
+                      <div class="response">
+                        <strong>Success!</strong> You have added to Favorite
+                      </div>
+                    ) : null}{" "}
+                  </div>
+
+                  {/* div append to handle the response of add to favorite */}
+                  <div>
+                    {submitAddCard ? (
+                      <div class="response">
+                        <strong>Success!</strong> You have added to Card
+                      </div>
+                    ) : null}{" "}
+                  </div>
+
+                  <div className="gridcontainer">
+                    {stock.map((e) => {
+                      return (
+                        <div className="card product-item border-0 mb-4">
+                          <div className="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                            <img
+                              className="img-fluid w-100"
+                              src={e.imageUrl}
+                              alt=""
+                            />
+                          </div>
+                          <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                            <h6 className="text-truncate mb-3">
+                              {e.productName}
                             </h6>
+                            <div className="d-flex justify-content-center">
+                              <h6> {e.price} dt</h6>
+                              <h6 className="text-muted ml-2">
+                                <del>{e.price + 20}</del>
+                              </h6>
+                            </div>
+                          </div>
+                          <div className="card-footer d-flex justify-content-between bg-light border">
+                            <Link
+                              href={"/user_interface/ProductDetails/id"}
+                              as={`/user_interface/ProductDetails/${e._id}`}
+                              className="btn btn-sm text-dark p-0"
+                            >
+                              <FontAwesomeIcon icon={faEye} />
+                              View Detail
+                            </Link>
+                            <a
+                              className="btn border"
+                              onClick={() => {
+                                addToFavorite(e);
+                                setSubmitFavorite(true);
+                              }}
+                            >
+                              <FontAwesomeIcon icon={faHeart} />
+                            </a>
+                            <a
+                              className="btn btn-sm text-dark p-0"
+                              onClick={() => {
+                                setSubmitAddCard(true);
+                                addToCart(e);
+                              }}
+                            >
+                              <FontAwesomeIcon icon={faShoppingCart} />
+                              Add To Cart
+                            </a>
+                            <div className="test"></div>
                           </div>
                         </div>
-                        <div className="card-footer d-flex justify-content-between bg-light border">
-                          <Link
-                            href={"/user_interface/ProductDetails/id"}
-                            as={`/user_interface/ProductDetails/${e._id}`}
-                            className="btn btn-sm text-dark p-0"
-                          >
-                            <FontAwesomeIcon icon={faEye} />
-                            View Detail
-                          </Link>
-                          <a
-                            className="btn border"
-                            onClick={() => {
-                              addToFavorite(e);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faHeart} />
-                            <span className="badge">0</span>
-                          </a>
-                          <a
-                            className="btn btn-sm text-dark p-0"
-                            onClick={() => {
-                              addToCart(e);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faShoppingCart} />
-                            Add To Cart
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* //////////////////////// */}
-                <div className="col-12 pb-1">
+                      );
+                    })}
+                  </div>
+                  {/* //////////////////////// */}
                   <nav aria-label="Page navigation">
                     <ul className="pagination justify-content-center mb-3">
                       <li className="page-item disabled">

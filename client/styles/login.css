@@ -209,7 +209,7 @@ input[type=radio] {
 	-ms-appearance: radio !important;
 }
 
-img {
+ .imge {
 	max-width: 100%;
 	height: auto;
 }

@@ -9,7 +9,6 @@ const ProductSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-
       required: true,
     },
     category: {
@@ -28,20 +27,11 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    gender: {
-      type: String,
-      required: false,
-    },
-    posted_at: {
-      type: String,
-      required: false,
-    },
-    adminId: {
+    size: {
       type: String,
       required: false,
     },
   },
-
   { timestamps: true }
 );
 

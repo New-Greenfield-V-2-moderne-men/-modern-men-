@@ -30,21 +30,6 @@ useEffect(()=>{
     //da1mkpgfd
 //https://api.cloudinary.com/v1_1/
   //achrefbg
-let uplodImage = async () => {
-  const form = new FormData();
-  form.append("file", file); // file is a varaible contain the picture
-  form.append("upload_preset", "achrefbg");
-  await axios
-    .post("https://api.cloudinary.com/v1_1/da1mkpgfd/upload", form) // send the form to cloudinary
-    .then((result) => {
-      console.log(result); // get the url of the image
-      setUrl(result.data.secure_url);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
 
 
 
@@ -64,9 +49,9 @@ let uplodImage = async () => {
           Change Photo
           <input type="file"
            name="file" 
-           onChange={()=>{setFile(event.target.file)}}
+           onChange={(event)=>{setFile(event.target.file)}}
           />
-          <button onClick={uplodImage}>Image Uploded</button>
+          {/* <button onClick={uplodImage}>Image Uploded</button> */}
         </div>
       </div>
     </div>
@@ -96,7 +81,7 @@ let uplodImage = async () => {
         className="profile-edit-btn"
         name="btnAddMore"
         defaultValue="Edit Profile"
-    
+    onClick={()=>{router.push('./user_interface/profilUpdated')}}
       />
     </div>
   </div>
@@ -106,6 +91,7 @@ let uplodImage = async () => {
     </div>
     <div className="col-md-8">
       <div className="tab-content profile-tab" id="myTabContent">
+
         <div
           className="tab-pane fade show active"
           id="home"

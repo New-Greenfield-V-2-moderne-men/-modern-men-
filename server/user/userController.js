@@ -209,7 +209,7 @@ try {
 
 const updated = await users.updateOne( 
     { _id : req.params.id}, 
-    { $push: { phone : req.body.phone  , bio:req.body.bio} } ) 
+    { $set: { phone : req.body.phone  , bio:req.body.bio} } ) 
 //  const profil 
   console.log(req.body);
     res.status(200).send(updated);

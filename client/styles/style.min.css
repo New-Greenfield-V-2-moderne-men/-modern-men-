@@ -2300,7 +2300,9 @@ select.form-control[multiple] {
 }
 
 textarea.form-control {
-    height: auto
+    height: auto;
+    margin-bottom: 20Px;
+    width: 1600px
 }
 
 .form-group {
@@ -10118,7 +10120,7 @@ button.bg-dark:focus {
 
     .pl-xl-5,
     .px-xl-5 {
-        padding-left: 10rem !important
+        padding-left: 15rem !important
     }
 
     .m-xl-n1 {
@@ -10769,12 +10771,24 @@ a.text-dark:focus {
 
 .response{
 color: black;
-background-color: #D19C97 ;
-
+background-color: #EDF1FF ;
 height: 50px;
-width: 1240px;
+width: 1600px;
 align-items: center;
 text-align: center;
 padding: 14px;
 margin-top:20px ;
+}
+
+
+.upload{
+     color: #fff;
+    background-color: #c17a74;
+    border-color: #bd726b;
+    padding: 6px;
+    border-radius: 5px;
+    position: relative;
+    top: 6px;
+    left: 500px
+
 }

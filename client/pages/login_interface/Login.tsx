@@ -6,6 +6,7 @@ import {
   faGoogle,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { faUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
@@ -14,9 +15,11 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // state to handell error message
   let [errormessage, setErrormessage] = useState("");
   let [error, setError] = useState(false);
-  // console.log("fegeg");
+
   const handleLogin = async () => {
     try {
       const loginReq = await axios
@@ -42,6 +45,7 @@ export default function Login() {
     }
   };
 
+  // function to check the token of connected user if admin ==> admin-side , if user ==> user-side !!
   const displayComponent = () => {
     let GetRole = localStorage.getItem("IS_ADMIN");
     let Parsed_Get_Role = JSON.parse(GetRole);
@@ -53,6 +57,7 @@ export default function Login() {
       return router.push("/user_interface/home");
     }
   };
+
   return (
     <div>
       <>
@@ -67,15 +72,17 @@ export default function Login() {
                     className="imge"
                   />
                 </figure>
-                <a
+                <strong
                   onClick={() => {
                     router.push("../login_interface/Signin");
                   }}
                   className="signup-image-link"
                 >
+                  <FontAwesomeIcon icon={faUser} />
                   Create an account
-                </a>
+                </strong>
               </div>
+
               <div className="signin-form">
                 <h2 className="form-title">Log in</h2>
                 <form method="POST" className="register-form" id="login-form">

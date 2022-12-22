@@ -412,7 +412,7 @@ export default function allProduct({ data }) {
                   {/* div append to handle the response of add to favorite */}
                   <div>
                     {submitFavorite ? (
-                      <div class="response">
+                      <div className="response">
                         <strong>Success!</strong> You have added to Favorite
                       </div>
                     ) : null}{" "}

@@ -110,36 +110,12 @@ export default function home() {
                       </div>
                     </div>
                   </div>
-                  <a className="carousel-control-prev" data-slide="prev">
-                    <div
-                      onClick={() => {
-                        NextImage();
-                        console.log("gg");
-                      }}
-                      className="btn btn-dark"
-                      style={{ width: 45, height: 45 }}
-                    >
-                      <span className="carousel-control-prev-icon mb-n2" />
-                    </div>
-                  </a>
+                  <a className="carousel-control-prev" data-slide="prev"></a>
                   <a
                     className="carousel-control-next"
                     href="#header-carousel"
                     data-slide="next"
-                  >
-                    <div
-                      className="btn btn-dark"
-                      style={{ width: 45, height: 45 }}
-                    >
-                      <span
-                        onClick={() => {
-                          PreviousImage();
-                          console.log("gg");
-                        }}
-                        className="carousel-control-next-icon mb-n2"
-                      />
-                    </div>
-                  </a>
+                  ></a>
 
                   <div className="carousel-item" style={{ height: 410 }}>
                     <img

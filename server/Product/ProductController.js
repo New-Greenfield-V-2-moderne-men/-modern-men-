@@ -34,9 +34,6 @@ const createOne = async (req, res) => {
 
 // Update an existing product
 const updateOne = async (req, res) => {
-  // console.log(req.params);
-
-  // console.log(id);
 
   try {
     const productUpdated = await product.findByIdAndUpdate(

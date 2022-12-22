@@ -1,33 +1,33 @@
-
 //@ts-nocheck
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 export default function Signin() {
   const router = useRouter();
-  const [email, setEmail] = useState("")
-  const [name, setName] = useState("")
-  const [password, setPassword] = useState("")
-  const [messageError, setMessageError] = useState("")
-  const [error, setError] = useState(false)
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [messageError, setMessageError] = useState("");
+  const [error, setError] = useState(false);
 
   const handleSignUp = async () => {
-
-    axios.post("http://localhost:4000/users/register", {
-      name: name,
-      email: email,
-      password: password,
-      isAdmin: false
-    })
-      .then(() => {
-        alert("account has been created")
-        router.push("/user_interface/home")
-      }).catch((error) => {
-        console.log(error.response.data.message);
-        setMessageError(error.response.data.message)
-        setError(true);
+    axios
+      .post("http://localhost:4000/users/register", {
+        name: name,
+        email: email,
+        password: password,
+        isAdmin: false,
       })
-  }
+      .then(() => {
+        alert("account has been created");
+        router.push("/user_interface/home");
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        setMessageError(error.response.data.message);
+        setError(true);
+      });
+  };
   return (
     <div>
       {" "}
@@ -46,7 +46,9 @@ export default function Signin() {
                     name="name"
                     id="name"
                     placeholder="Your Name"
-                    onChange={(e) => { setName(e.target.value) }}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form-group">
@@ -58,7 +60,9 @@ export default function Signin() {
                     name="email"
                     id="email"
                     placeholder="Your Email"
-                    onChange={(e) => { setEmail(e.target.value) }}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form-group">
@@ -70,14 +74,15 @@ export default function Signin() {
                     name="pass"
                     id="pass"
                     placeholder="Password"
-                    onChange={(e) => { setPassword(e.target.value) }}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor="re-pass">
                     <i className="zmdi zmdi-lock-outline" />
                   </label>
-
                 </div>
                 <div className="form-group">
                   <input
@@ -96,14 +101,16 @@ export default function Signin() {
                     </a>
                   </label>
                 </div>
-                <div className="form-group form-button">
-
-                </div>
+                <div className="form-group form-button"></div>
               </form>
-              <button name="signup" id="signup" className="form-submit"
+              <button
+                name="signup"
+                id="signup"
+                className="form-submit"
                 onClick={() => {
-                  handleSignUp()
-                }}>
+                  handleSignUp();
+                }}
+              >
                 {" "}
                 Sign Up
               </button>
@@ -118,14 +125,14 @@ export default function Signin() {
                   alt="sing up image"
                 />
               </figure>
-              <a
+              <strong
                 onClick={() => {
                   router.push("../login_interface/Login");
                 }}
                 className="signup-image-link"
               >
                 I am already member
-              </a>
+              </strong>
             </div>
           </div>
         </div>

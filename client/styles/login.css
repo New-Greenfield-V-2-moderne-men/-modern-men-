@@ -212,6 +212,7 @@ input[type=radio] {
  .imge {
 	max-width: 100%;
 	height: auto;
+	
 }
 
 figure {
@@ -253,10 +254,11 @@ body {
 }
 
 .container {
-	width: 900px;
+	width: 1000px;
+	height: 900px;
 	background: #fff;
 	margin: 0 auto;
-	margin-top: 4%;
+	margin-top: 0%;
 	box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
 	-moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
 	-webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);

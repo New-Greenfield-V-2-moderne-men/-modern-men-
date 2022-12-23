@@ -6,7 +6,7 @@ import {
   faGoogle,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
@@ -29,11 +29,16 @@ export default function Login() {
         })
         .then((response) => {
           const encodedToken = response.data.token.toString().split(".")[1];
+          console.log(encodedToken);
+
           const decodedToken = atob(encodedToken);
           const payload = JSON.parse(decodedToken);
           localStorage.setItem("IS_ADMIN", payload.isAdmin);
           localStorage.setItem("USER_ID", payload.id);
           localStorage.setItem("USER_NAME", payload.name);
+          localStorage.setItem("USER_EMAIL", payload.email);
+          localStorage.setItem("USER_PHONE", payload.Phone);
+          localStorage.setItem("USER_BIO", payload.bio);
         })
         .then(() => {
           displayComponent();

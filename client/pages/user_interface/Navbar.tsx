@@ -177,8 +177,8 @@ export default function Navbar() {
                 <a
                   onClick={() => {
                     router.push("../login_interface/Login");
-                    // localStorage.removeItem("USER_ID") 
-                    localStorage.clear()
+                    // localStorage.removeItem("USER_ID")
+                    localStorage.clear();
                   }}
                   className="nav-item nav-link"
                 >

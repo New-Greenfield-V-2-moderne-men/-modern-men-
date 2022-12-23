@@ -39,3 +39,27 @@ export default function test() {
 //     },
 //   };
 // };
+
+// {
+//   "productName": " Newpull",
+//   "description": "pull",
+//   "category": "T-shirt",
+//   "price": 450,
+//   "imageUrl": "https://static.bershka.net/4/photos2/2023/V/0/2/p/2813/900/800//02/2813900800_2_4_3.jpg?t=1662043993423",
+//   "color": "Black",
+//   "size": "M"
+// }
+
+//  useEffect(() => {
+// setAllProdRoute(
+//   item ? "/user_interface/allProduct" : "/admin_interface/allProduct"
+// );
+//  }, []);
+
+//  onClick={() => {
+//                     router.push(
+//                       localStorage.getItem("IS_ADMIN")
+//                         ? "/admin_interface/allProduct"
+//                         : "/user_interface/allProduct"
+//                     );
+//                   }}

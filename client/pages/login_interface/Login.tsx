@@ -6,6 +6,7 @@ import {
   faGoogle,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
@@ -14,9 +15,11 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // state to handell error message
   let [errormessage, setErrormessage] = useState("");
   let [error, setError] = useState(false);
-  // console.log("fegeg");
+
   const handleLogin = async () => {
     try {
       const loginReq = await axios
@@ -26,11 +29,16 @@ export default function Login() {
         })
         .then((response) => {
           const encodedToken = response.data.token.toString().split(".")[1];
+          console.log(encodedToken);
+
           const decodedToken = atob(encodedToken);
           const payload = JSON.parse(decodedToken);
           localStorage.setItem("IS_ADMIN", payload.isAdmin);
           localStorage.setItem("USER_ID", payload.id);
           localStorage.setItem("USER_NAME", payload.name);
+          localStorage.setItem("USER_EMAIL", payload.email);
+          localStorage.setItem("USER_PHONE", payload.Phone);
+          localStorage.setItem("USER_BIO", payload.bio);
         })
         .then(() => {
           displayComponent();
@@ -42,6 +50,7 @@ export default function Login() {
     }
   };
 
+  // function to check the token of connected user if admin ==> admin-side , if user ==> user-side !!
   const displayComponent = () => {
     let GetRole = localStorage.getItem("IS_ADMIN");
     let Parsed_Get_Role = JSON.parse(GetRole);
@@ -53,6 +62,7 @@ export default function Login() {
       return router.push("/user_interface/home");
     }
   };
+
   return (
     <div>
       <>
@@ -64,17 +74,20 @@ export default function Login() {
                   <img
                     src="https://pmb.unespadang.ac.id/assets/ilustration-login.23ef2507.svg"
                     alt="sing up image"
+                    className="imge"
                   />
                 </figure>
-                <a
+                <strong
                   onClick={() => {
                     router.push("../login_interface/Signin");
                   }}
                   className="signup-image-link"
                 >
+                  <FontAwesomeIcon icon={faUser} />
                   Create an account
-                </a>
+                </strong>
               </div>
+
               <div className="signin-form">
                 <h2 className="form-title">Log in</h2>
                 <form method="POST" className="register-form" id="login-form">
@@ -106,15 +119,12 @@ export default function Login() {
                       }}
                     />
                   </div>
-                  <div className="form-group">
-              
-                  </div>
+                  <div className="form-group"></div>
                   <div className="form-group form-button"></div>
                 </form>
                 <button
                   onClick={() => {
                     handleLogin();
-                   
                   }}
                   id="signin"
                   className="form-submit"
@@ -122,8 +132,10 @@ export default function Login() {
                   Log In
                 </button>{" "}
                 <div>
-                {error ? <p style={{ color: "red" }}>{errormessage}</p> : null}{" "}
-              </div>
+                  {error ? (
+                    <p style={{ color: "red" }}>{errormessage}</p>
+                  ) : null}{" "}
+                </div>
                 <div className="social-login">
                   <span className="social-label">Or login with</span>
                   <ul className="socials">

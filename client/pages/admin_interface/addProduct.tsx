@@ -1,53 +1,22 @@
 //@ts-nocheck
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
+import Router from "next/router";
 import axios from "axios";
-import Navbar from "../../user_interface/Navbar";
-import Footer from "../../user_interface/Footer";
+import Navbar from "../user_interface/Navbar";
+import Footer from "../user_interface/Footer";
 
-export default function edit() {
-  const router = useRouter();
-  const [data, setData] = useState([]);
-
-  // function to get element by id
-  useEffect(() => {
-    if (router.isReady) {
-      axios
-        .get(`http://localhost:4000/product/${router.query.id}`)
-        .then((res) => setData(res.data))
-        .catch((err) => console.log(err));
-    }
-  }, [router.isReady]);
-
+export default function addProduct() {
   // state for the values of the input
-  const [productName, setName] = useState("");
+  const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [color, setColor] = useState("");
-
-  // function to update product
-  const UpdateProduct = () => {
-    axios
-      .put(`http://localhost:4000/product/${router.query.id}`, {
-        productName: productName,
-        description: description,
-        category: category,
-        price: price,
-        imageUrl: url,
-        color: color,
-      })
-      .then((res) => {
-        console.log(res);
-        router.push("../allProduct");
-      });
-  };
+  // const [imageUrl, setImageUrl] = useState("");
 
   // state to get the url of picture from cloudinary
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState("");
-  // state to handlle the response of updated element
-  const [submitUpdate, setSubmitUpdate] = useState(false);
   // state to handlle the response of uploading image
   const [submitUpload, setSubmitUpload] = useState(false);
 
@@ -67,6 +36,23 @@ export default function edit() {
       });
   };
 
+  let addProduct = () => {
+    axios
+      .post("http://localhost:4000/product/add", {
+        productName: productName,
+        description: description,
+        category: category,
+        price: price,
+        imageUrl: url,
+        color: color,
+      })
+
+      .then(() => {
+        Router.push("./allProduct");
+        console.log("added");
+      });
+  };
+
   return (
     <div>
       <>
@@ -78,10 +64,10 @@ export default function edit() {
             style={{ minHeight: 300 }}
           >
             <h1 className="font-weight-semi-bold text-uppercase mb-3">
-              Update Product
+              Add Product
             </h1>
             <div className="d-inline-flex">
-              <p className="m-0">Update </p>
+              <p className="m-0">Add </p>
             </div>
           </div>
         </div>
@@ -89,14 +75,7 @@ export default function edit() {
         {/* Contact Start */}
         <div className="container-fluid pt-5">
           <div className="text-center mb-4">
-            <h2 className="section-title px-5">{data.productName}</h2>
-          </div>
-          <div>
-            {submitUpdate ? (
-              <div class="response">
-                <strong>Success!</strong> You have deleted this Product !!
-              </div>
-            ) : null}{" "}
+            <h2 className="section-title px-5">Add a New Product</h2>
           </div>
 
           <div className="row px-xl-5">
@@ -112,7 +91,7 @@ export default function edit() {
                     placeholder="Product Name"
                     data-validation-required-message="Please enter the Product Name"
                     onChange={(e) => {
-                      setName(e.target.value);
+                      setProductName(e.target.value);
                     }}
                   />
                   <p className="help-block text-danger" />
@@ -141,6 +120,7 @@ export default function edit() {
                       setCategory(e.target.value);
                     }}
                   />
+
                   <p className="help-block text-danger" />
                 </div>
                 <div className="control-group">
@@ -174,44 +154,36 @@ export default function edit() {
                   <input
                     onChange={(e) => setFile(e.target.files[0])}
                     type="file"
-                    className="upload-file"
+                    name=""
+                    id=""
                   />
-                  <button className="upload" onClick={uplodImage}>
+                  <button onClick={uplodImage} className="upload">
                     <span
                       onClick={() => {
                         setSubmitUpload(true);
                       }}
                     >
-                      {" "}
-                      Upload Image{" "}
+                      Upload Image
                     </span>
                   </button>
+                  <div>
+                    {submitUpload && url ? (
+                      <div className="response">
+                        <strong>Success!</strong> You have Upload The Picture{" "}
+                      </div>
+                    ) : (
+                      <div>
+                        <strong>No picture !!</strong>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  {submitUpload && url ? (
-                    <div className="response">
-                      <strong>Success!</strong> You have Upload The Picture{" "}
-                    </div>
-                  ) : (
-                    <div>
-                      <strong>No picture !!</strong>
-                    </div>
-                  )}
-                </div>
-
                 <div>
                   <button
                     className="btn btn-primary py-2 px-4"
                     id="sendMessageButton"
-                    onClick={UpdateProduct}
                   >
-                    <span
-                      onClick={() => {
-                        setSubmitUpdate(true);
-                      }}
-                    >
-                      Update{" "}
-                    </span>
+                    <span onClick={addProduct}>Submit</span>
                   </button>
                 </div>
               </div>

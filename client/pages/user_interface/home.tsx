@@ -11,6 +11,7 @@ import {
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Link from "next/link";
+import axios from "axios";
 
 export default function home() {
   const images = [
@@ -18,16 +19,10 @@ export default function home() {
       url: "https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/11/Tshirt-design.jpg?auto=format&q=60&w=2060&h=2060&fit=crop&crop=faces",
     },
     {
-      url: "https://media.gucci.com/content/DiaryHeroArticle_Standard_1600x812/1655895611/DiaryHeroArticle_Gucci-Pet-Collection-01_001_Default.jpg",
+      url: "https://cms.cloudinary.vpsvc.com/images/c_scale,dpr_auto,f_auto,q_auto:good,w_1700/legacy_dam/fr-fr/S001287792/CA-Tshirt-Family-Page-NP-Marquee-001?cb=809e14fb2e1d2b50dd0d1a856ad2ec634585f877",
     },
     {
-      url: "https://powerofthepaw.org/wp-content/uploads/2021/02/4-870x400.jpeg",
-    },
-    {
-      url: "https://www.foundanimals.org/wp-content/uploads/2019/01/pet-accessories.jpg",
-    },
-    {
-      url: "https://www.k9ofmine.com/wp-content/uploads/2021/12/dog-modeling-jobs.jpg",
+      url: "https://img.freepik.com/free-vector/sport-training-running-tennis-shoes-advertising-realistic-composition-with-pair-trendy-comfortable-everyday-wear-sneakers-illustration_1284-31193.jpg?w=2000",
     },
   ];
 
@@ -41,6 +36,26 @@ export default function home() {
   const NextImage = () => {
     setCurrentIndex(currentIndex + 1);
   };
+
+  // function to get the length of each category
+  const [tshirtDataLength, setTshirtDataLength] = useState(0);
+  const [jeansDataLength, setJeanstDataLength] = useState(0);
+  const [shoesDataLength, setShoestDataLength] = useState(0);
+
+  let GetFiltredDatabyCategory = async (category) => {
+    await axios
+      .get(`http://localhost:4000/product/find/${category}`)
+      .then((result) => {
+        if (category === "T-shirt") setTshirtDataLength(result.data.length);
+        if (category === "Jeans") setJeanstDataLength(result.data.length);
+        if (category === "Shoes") setShoestDataLength(result.data.length);
+      });
+  };
+
+  // invokation to get the length of each cateogory
+  GetFiltredDatabyCategory("T-shirt");
+  GetFiltredDatabyCategory("Jeans");
+  GetFiltredDatabyCategory("Shoes");
 
   return (
     <div>
@@ -87,36 +102,12 @@ export default function home() {
                       </div>
                     </div>
                   </div>
-                  <a className="carousel-control-prev" data-slide="prev">
-                    <div
-                      onClick={() => {
-                        NextImage();
-                        console.log("gg");
-                      }}
-                      className="btn btn-dark"
-                      style={{ width: 45, height: 45 }}
-                    >
-                      <span className="carousel-control-prev-icon mb-n2" />
-                    </div>
-                  </a>
+                  <a className="carousel-control-prev" data-slide="prev"></a>
                   <a
                     className="carousel-control-next"
                     href="#header-carousel"
                     data-slide="next"
-                  >
-                    <div
-                      className="btn btn-dark"
-                      style={{ width: 45, height: 45 }}
-                    >
-                      <span
-                        onClick={() => {
-                          PreviousImage();
-                          console.log("gg");
-                        }}
-                        className="carousel-control-next-icon mb-n2"
-                      />
-                    </div>
-                  </a>
+                  ></a>
 
                   <div className="carousel-item" style={{ height: 410 }}>
                     <img
@@ -197,7 +188,7 @@ export default function home() {
                 className="cat-item d-flex flex-column border mb-4"
                 style={{ padding: 40 }}
               >
-                <p className="text-right">length : 15 Products</p>
+                <p className="text-right">{tshirtDataLength} Products</p>
                 <a
                   href=""
                   className="cat-img position-relative overflow-hidden mb-3"
@@ -210,7 +201,7 @@ export default function home() {
                 </a>
                 <Link
                   href={{
-                    pathname: "./category/T-Shirt",
+                    pathname: "./category/T-shirt",
                   }}
                 >
                   <h5 className="font-weight-semi-bold m-0">T-shirt</h5>
@@ -223,14 +214,17 @@ export default function home() {
                 className="cat-item d-flex flex-column border mb-4"
                 style={{ padding: 30 }}
               >
-                <p className="text-right">15 Products</p>
+                <p className="text-right">{jeansDataLength} Products</p>
                 <a
                   href=""
                   className="cat-img position-relative overflow-hidden mb-3"
                 >
                   <img
                     className="img-fluid"
-                    src="https://static.zara.net/photos///2022/I/0/2/p/8727/335/406/2/w/750/8727335406_6_1_1.jpg?ts=1664793001022"
+                    src="https://o.remove.bg/downloads/7fcf0432-ab64-40b6-a3e4-958f47259bf7/005124175-removebg-preview.png"
+                    // src="https://johnlewis.scene7.com/is/image/JohnLewis/005124175?"
+                    // src="https://static-01.daraz.pk/p/9ff0f861bd134ca2620e97280fd4ad93.jpg"
+
                     alt=""
                   />
                 </a>
@@ -248,7 +242,7 @@ export default function home() {
                 className="cat-item d-flex flex-column border mb-4"
                 style={{ padding: 30 }}
               >
-                <p className="text-right">15 Products</p>
+                <p className="text-right">{shoesDataLength} Products</p>
                 <a
                   href=""
                   className="cat-img position-relative overflow-hidden mb-3"

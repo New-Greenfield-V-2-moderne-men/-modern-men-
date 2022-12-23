@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   faFacebookF,
   faLinkedin,
@@ -17,10 +17,47 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import axios from "axios";
 
 export default function Navbar() {
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(""); 
+  const [favorite,setFavorite] =useState("") ;
+  const [cart,setCart] =useState("") ; 
+  console.log( "favorite :",  favorite);
+  console.log( "cart  :",  cart) 
+
+
+  //function to get the cart array 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const id = localStorage.getItem("USER_ID");
+      axios
+        .get(`http://localhost:4000/users/getOne/${id}`)
+        .then((res) => {
+          setCart(res.data.cart);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);  
+
+    //function to get the favorite array 
+
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const id = localStorage.getItem("USER_ID");
+      axios
+        .get(`http://localhost:4000/users/getOne/${id}`)
+        .then((res) => {
+          setFavorite(res.data.favorite);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
+
+
   // console.log(name);
 
   return (
@@ -96,11 +133,11 @@ export default function Navbar() {
               {/* <i className="fas fa-heart text-primary" /> */}
 
               <FontAwesomeIcon icon={faHeart} />
-              <span className="badge">0</span>
+              <span className="badge">{favorite.length}</span>
             </Link>
             <Link href="/user_interface/cart" className="btn border">
               <FontAwesomeIcon icon={faShoppingCart} />
-              <span className="badge">0</span>
+              <span className="badge">{cart.length}</span>
             </Link>
 
             <Link href="./Profile" className="btn border">

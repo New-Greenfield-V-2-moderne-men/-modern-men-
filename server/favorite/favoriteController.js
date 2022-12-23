@@ -3,10 +3,10 @@ const Product = require("../Product/ProductSchema");
 const favorite = require("./favoriteSchema");
 
 const getAllFavorite = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const user = await User.findOne({ id: req.params.user_id });
   const userSaved = await user.save();
-  console.log(userSaved);
+  // console.log(userSaved);
   if (user) {
     let product = await new favorite({
       userId: userSaved,

@@ -202,7 +202,7 @@ const deleteAll = async (req, res) => {
 };
 
 
-  console.log(req.body);
+  // console.log(req.body);
 // update profil of user
 updateProfil = async (req, res) => {
   try{

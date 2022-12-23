@@ -1,6 +1,91 @@
-img{
-     width: 420px;
-    height: 300px;
-    object-fit: contain;
-    
+.profile_picture{
+vertical-align: middle;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+} 
+.btn btn-primary profile-button {
+    background-color: green;
+}
+
+.upload {
+    position: relative;
+    margin: auto;
+    left: 450px;
+    top: 300px;
+    font-size: 14px;
+    top: -30px;
+}
+
+.row-profile {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -4px;
+    margin-left: -15px;
+}
+
+
+.container-profile{
+
+width: 1200px;
+    background: #fff;
+    margin: 0 auto;
+
+
+}
+
+.upload-profile{
+    color: #fff;
+        background-color: #c17a74;
+        border-color: #bd726b;
+        padding: 6px;
+        border-radius: 5px;
+        position: relative;
+        top: 19px;
+        left: 0px
+}
+
+
+.response-profile{
+
+color: black;
+    background-color: #EDF1FF;
+    height: 50px;
+    width: 450px;
+    align-items: center;
+    text-align: center;
+    padding: 14px;
+    margin-top: 20px;
+
+
+}
+
+
+.button-3-profile {
+
+    appearance: none;
+    background-color: #2ea44f;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    left: 440px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+
+
 }

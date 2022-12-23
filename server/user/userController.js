@@ -33,6 +33,8 @@ async function login(req, res) {
         name: user.name,
         email: user.email,
         password: user.pwd,
+        Phone: user.phone,
+        bio: user.bio,
       },
       "SECRET"
     );
@@ -201,15 +203,16 @@ const deleteAll = async (req, res) => {
   }
 };
 
-
-  console.log(req.body);
 // update profil of user
 updateProfil = async (req, res) => {
-  try{
-const updated = await users.updateOne( 
-    { _id : req.params.id}, 
-    { $set: { phone : req.body.phone  , bio:req.body.bio} } ) 
-    console.log(req.body);
+  try {
+    const updated = await users.updateOne(
+      { _id: req.params.id },
+      {
+        $set: { phone: req.body.phone, bio: req.body.bio, name: req.body.name },
+      }
+    );
+
     res.status(200).send(updated);
   } catch (err) {
     res.status(500).send(err);

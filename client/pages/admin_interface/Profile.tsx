@@ -1,8 +1,8 @@
 //@ts-nocheck
 
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "../user_interface/Navbar";
+import Footer from "../user_interface/Footer";
 import axios from "axios";
 
 export default function Profile() {

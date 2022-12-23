@@ -19,7 +19,13 @@ import Footer from "../../Footer";
 export default function ProductDetail() {
   const router = useRouter();
   const [data, setData] = useState([]);
+
+  // state for the amount (quantity )
   const [amount, setAmount] = useState(1);
+
+  //State to handlle the response of add to cart
+  const [submitAddCard, setSubmitAddCard] = useState(false);
+
   // function to get the data filtrd by category
   useEffect(() => {
     if (router.isReady) {
@@ -145,11 +151,19 @@ export default function ProductDetail() {
                   <span
                     onClick={() => {
                       addToCart(data);
+                      setSubmitAddCard(true);
                     }}
                   >
                     Add To Cart
                   </span>
                 </button>
+              </div>
+              <div>
+                {submitAddCard ? (
+                  <div class="response">
+                    <strong>Success!</strong> You have added to Card
+                  </div>
+                ) : null}{" "}
               </div>
               <h3>
                 Total : <span>{data.price * amount} dt </span>

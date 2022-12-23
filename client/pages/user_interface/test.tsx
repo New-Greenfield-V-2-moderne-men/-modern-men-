@@ -49,3 +49,17 @@ export default function test() {
 //   "color": "Black",
 //   "size": "M"
 // }
+
+//  useEffect(() => {
+// setAllProdRoute(
+//   item ? "/user_interface/allProduct" : "/admin_interface/allProduct"
+// );
+//  }, []);
+
+//  onClick={() => {
+//                     router.push(
+//                       localStorage.getItem("IS_ADMIN")
+//                         ? "/admin_interface/allProduct"
+//                         : "/user_interface/allProduct"
+//                     );
+//                   }}

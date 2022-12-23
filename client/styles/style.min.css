@@ -2301,8 +2301,10 @@ select.form-control[multiple] {
 
 textarea.form-control {
     height: auto;
-    margin-bottom: 20Px;
-    width: 1600px
+    margin-bottom: 40Px;
+    width: 1600px;
+    border-radius: 20px;
+
 }
 
 .form-group {
@@ -10686,7 +10688,8 @@ a.text-dark:focus {
     display: inline-block;
     letter-spacing: 1px;
     font-weight: bold;
-    color: #1C1C1C
+    color: #1C1C1C;
+
 }
 
 .section-title span {
@@ -10697,7 +10700,6 @@ a.text-dark:focus {
 
 .section-title::before {
     position: absolute;
-    content: "";
     top: 50%;
     left: 0;
     width: 100%;
@@ -10773,7 +10775,7 @@ a.text-dark:focus {
 color: black;
 background-color: #EDF1FF ;
 height: 50px;
-width: 1600px;
+width: 1240px;
 align-items: center;
 text-align: center;
 padding: 14px;

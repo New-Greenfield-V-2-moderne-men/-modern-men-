@@ -448,8 +448,10 @@ export default function allProduct({ data }) {
                         </div>
                         <div className="card-footer d-flex justify-content-between bg-light border">
                           <Link
-                            href={"/admin_interface/edit/id"}
-                            as={`/admin_interface/edit/${e._id}`}
+                            href={ {
+                              pathname :"/admin_interface/edit/id" ,
+                            } }
+                           
                             className="btn btn-sm text-dark p-0"
                           >
                            

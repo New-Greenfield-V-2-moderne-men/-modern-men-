@@ -143,7 +143,7 @@ export default function Profile() {
               <div class="mt-5 text-center">
                 <button
                   type="button"
-                  class="btn btn-success"
+                  className="save"
                   onClick={() => updateUser(id)}
                 >
                   Save Changes

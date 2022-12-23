@@ -142,8 +142,8 @@ export default function Profile() {
               <div></div>
               <div class="mt-5 text-center">
                 <button
-                  type="button"
-                  class="btn btn-success"
+                  type="save"
+                  className="upload"
                   onClick={() => updateUser(id)}
                 >
                   Save Changes

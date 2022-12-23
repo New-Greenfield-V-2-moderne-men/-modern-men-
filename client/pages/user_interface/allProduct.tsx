@@ -37,7 +37,7 @@ export default function allProduct({ data }) {
     }
   }, []);
 
-  // funvtion to add an element to the card
+  // function to add an element to the card
   const [submitAddCard, setSubmitAddCard] = useState(false);
   const addToCart = (e) => {
     axios

@@ -89,3 +89,14 @@ color: black;
 
 
 }
+
+.save{
+color: #fff;
+    background-color: #c17a74;
+    border-color: #bd726b;
+    padding: 6px;
+    border-radius: 5px;
+    position: relative;
+    top: 6px;
+    left:0px
+}

@@ -221,7 +221,7 @@ export default function home() {
                 >
                   <img
                     className="img-fluid"
-                    src="https://o.remove.bg/downloads/7fcf0432-ab64-40b6-a3e4-958f47259bf7/005124175-removebg-preview.png"
+                    src="https://o.remove.bg/downloads/597f511a-33db-4572-9421-18e76b1f16a9/Jeans-removebg-preview.png"
                     // src="https://johnlewis.scene7.com/is/image/JohnLewis/005124175?"
                     // src="https://static-01.daraz.pk/p/9ff0f861bd134ca2620e97280fd4ad93.jpg"
 
